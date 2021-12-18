@@ -1,0 +1,25 @@
+/* 
+  Localizable.strings
+  IdealVisual
+
+  Created by Sasha Kurganova on 27.11.2021.
+  
+*/
+
+//MARK: - language
+"language.en" = "English";
+"language.ru" = "Russian";
+
+//MARK: - loader
+"loader.alert" = "Loading...";
+
+//MARK: - error
+"error.unknown" = "Unknown error. Try later...";
+"error.noInternetConnection" = "Loss Internet Connection. Try later...";
+"error.emptyData" = "Failed to load data";
+"error.unauthorized" = "You are unauthorized";
+"error.access" = "You haven't access";
+"error.unavalaible" = "Servise unavaliable now. Try later...";
+
+//MARK: - auth
+"auth.username" = "username";
