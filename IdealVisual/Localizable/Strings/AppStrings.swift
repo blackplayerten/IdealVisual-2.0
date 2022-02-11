@@ -31,20 +31,3 @@ enum AppLoaderStrings: Localizable {
         return self.rawValue.localized(prefix: prefix, value: self.rawValue.string)
     }
 }
-
-enum ErrorStrings: Localizable {
-    case unknown = "unknown"
-    case noInternetConnection = "noInternetConnection"
-    case emptyData = "emptyData"
-    case unauthorized = "unauthorized"
-    case access = "access"
-    case unavaliable = "unavalaible"
-    
-    var prefix: String? {
-        "error"
-    }
-
-    var localized: String {
-        return self.rawValue.localized(prefix: prefix, value: self.rawValue.string)
-    }
-}

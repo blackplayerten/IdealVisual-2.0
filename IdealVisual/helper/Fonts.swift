@@ -12,7 +12,7 @@ extension UIFont {
     struct Names {
         static let system = UIFont.systemFont(ofSize: 0.0).fontName
     }
-    
+
     struct Sizes {
         static let small: CGFloat = 12.0
         static let medium: CGFloat = 16.0

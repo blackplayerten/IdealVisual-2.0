@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 
 protocol AppThemeColorsComponents: AnyObject {
-    var background: UIColor { get set }
-    var titleText: UIColor { get set }
-    var secondaryText: UIColor { get set }
-    var inputFiledPlaceholder: UIColor { get set }
-    var inputFieldText: UIColor { get set }
+    var background: UIColor { get }
+    var titleText: UIColor { get }
+    var secondaryText: UIColor { get }
+    var inputFiledPlaceholder: UIColor { get }
+    var inputFieldText: UIColor { get }
     var saveButtonBackground: UIColor { get set }
     var saveButtonText: UIColor { get set }
     var defaultAvatar: UIColor { get set }

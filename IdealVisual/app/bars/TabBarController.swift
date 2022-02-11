@@ -8,14 +8,15 @@
 import Foundation
 import UIKit
 
-final class TabBar: UITabBarController, UITabBarControllerDelegate {
+final class TabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
 
     private func setup() {
-        tabBar.backgroundColor = .white
+        tabBar.isTranslucent = false
+        tabBar.barTintColor = AppTheme.shared.colorsComponents.background
         tabBar.clipsToBounds = true
         setupViewControllers()
     }
@@ -28,7 +29,7 @@ final class TabBar: UITabBarController, UITabBarControllerDelegate {
         feedViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
 
         viewControllers = [
-            DarkFontNavigationController(rootViewController: feedViewController)
+            NavigationController(rootViewController: feedViewController)
         ]
     }
 }

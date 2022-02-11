@@ -7,10 +7,66 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 final class FeedViewController: UIViewController {
+    var feed = FeedCollectionView()
+    //MARK: - data
+    private var viewModel: FeedViewModelProtocol? {
+        didSet {
+            bind()
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .orange
+        viewModel = FeedViewModel()
+        setTheme()
+        configureFeed()
+        setupFeed()
+        fetchImages()
+    }
+
+    //MARK: - private func
+    private func bind() {
+        guard let viewModel = viewModel else { return Logger.log("no view model") }
+        viewModel.bind = { self.update() }
+    }
+
+    fileprivate func setTheme() {
+        view.backgroundColor = AppTheme.shared.colorsComponents.background
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.tintColor =  AppTheme.shared.colorsComponents.background
+    }
+
+    private func configureFeed() {
+        feed.frame = view.frame
+        feed.flowLayoutDelegate = FeedCollectionViewFlowLayoutDelegate(view: self.view, collectionView: feed)
+        feed.registerCells([FeedCollectionViewCell.self])
+    }
+
+    private func setupFeed() {
+        view.addSubview(feed)
+        feed.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin)
+            $0.left.right.equalToSuperview()
+        }
+    }
+
+    private func fetchImages() {
+        DispatchQueue.main.async {
+            guard let viewModel = self.viewModel else { return Logger.log("nil self or no view model") }
+            viewModel.fetchFeedImages()
+        }
+    }
+}
+
+extension FeedViewController: FeedProtocol {
+    func update() {
+        if let data = viewModel?.feedPhotos {
+            feed.items = data
+            feed.reloadData()
+        }
     }
 }

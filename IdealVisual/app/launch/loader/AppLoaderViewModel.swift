@@ -19,7 +19,7 @@ protocol AppLoaderViewModelProtocol: AnyObject {
 final class AppLoaderViewModel: AppLoaderViewModelProtocol {
     fileprivate var appLoaderServise: AppLoaderModelServiceProtocol
 
-    private(set) var launchData : AppLoaderModel? {
+    private(set) var launchData: AppLoaderModel? {
         didSet {
             self.bindLaunchData()
         }
@@ -31,8 +31,8 @@ final class AppLoaderViewModel: AppLoaderViewModelProtocol {
         }
     }
 
-    var bindLaunchData : (() -> ()) = {}
-    var bindAlertMessage : (() -> ()) = {}
+    var bindLaunchData: (() -> ()) = {}
+    var bindAlertMessage: (() -> ()) = {}
 
     init() {
         self.appLoaderServise = AppLoaderModelService()

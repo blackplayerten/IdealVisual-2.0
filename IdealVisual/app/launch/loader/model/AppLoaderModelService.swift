@@ -14,7 +14,7 @@ protocol AppLoaderModelServiceProtocol: AnyObject {
 final class AppLoaderModelService: AppLoaderModelServiceProtocol {
     func launch(completion: @escaping (Result<AppLoaderModel, ServiceErrors>) -> Void) {
         // go to back and fetch launh data
-        completion(.failure(.noData))
-//        completion(.success(AppLoaderModel(isFirstLaunch: false, isUserSignedIn: false)))
+//        completion(.failure(.noData))
+        completion(.success(AppLoaderModel(isFirstLaunch: false, isUserSignedIn: true)))
     }
 }

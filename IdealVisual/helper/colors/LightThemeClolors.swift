@@ -10,7 +10,7 @@ import UIKit
 
 final class LightThemeColors: AppThemeColorsComponents {
     var background: UIColor = {
-        .black
+        .white
     }()
 
     var titleText: UIColor = {
@@ -26,7 +26,7 @@ final class LightThemeColors: AppThemeColorsComponents {
     }()
     
     var inputFieldText: UIColor = {
-        .white
+        .black
     }()
     
     var saveButtonBackground: UIColor = {
@@ -34,7 +34,7 @@ final class LightThemeColors: AppThemeColorsComponents {
     }()
 
     var saveButtonText: UIColor = {
-        .white
+        .black
     }()
 
     var defaultAvatar: UIColor = {

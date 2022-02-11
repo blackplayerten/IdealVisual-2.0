@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-typealias Validator = (SingleField, CheckMistakeLabel) -> Bool
+typealias Validator = (SingleLineField, UILabel) -> Bool
 
-func checkNotEmpty(field: SingleField, mistake: CheckMistakeLabel, message: String = "") -> Bool {
+func checkNotEmpty(field: SingleLineField, mistake: UILabel, message: String = "") -> Bool {
     let isValid = field.textField.text?.count != 0
     if isValid {
         field.setValidationState(isValid: true)
@@ -24,11 +24,11 @@ func checkNotEmpty(field: SingleField, mistake: CheckMistakeLabel, message: Stri
     return isValid
 }
 
-func checkValidUsername(field: SingleField, mistake: CheckMistakeLabel) -> Bool {
+func checkValidUsername(field: SingleLineField, mistake: UILabel) -> Bool {
     return checkNotEmpty(field: field, mistake: mistake, message: "Имя пользователя не может быть пустым")
 }
 
-func checkValidEmail(field: SingleField, mistake: CheckMistakeLabel) -> Bool {
+func checkValidEmail(field: SingleLineField, mistake: UILabel) -> Bool {
     if !checkNotEmpty(field: field, mistake: mistake, message: "Электронная почта не может быть пустой") {
         return false
     }
@@ -49,11 +49,11 @@ func checkValidEmail(field: SingleField, mistake: CheckMistakeLabel) -> Bool {
     return isEmail
 }
 
-func checkValidPassword(field: SingleField, mistake: CheckMistakeLabel) -> Bool {
+func checkValidPassword(field: SingleLineField, mistake: UILabel) -> Bool {
     return checkNotEmpty(field: field, mistake: mistake, message: "Некорректный пароль")
 }
 
-func checkValidPasswordPair(field: SingleField, fieldRepeat: SingleField) -> Bool {
+func checkValidPasswordPair(field: SingleLineField, fieldRepeat: SingleLineField) -> Bool {
     var passwordsAreValid = true
     if field.textField.text != fieldRepeat.textField.text {
         passwordsAreValid = false

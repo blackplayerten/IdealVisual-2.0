@@ -14,6 +14,7 @@ class AppLoaderViewController: UIViewController {
         static let leftRightMargin: Float = 10.0
         static let sizeLoadingIndicator: CGSize = .init(width: 50.0, height: 50.0)
     }
+
     //MARK: - ui elements
     private var alert: UIAlertController?
     private lazy var loadingIndicator: UIActivityIndicatorView = {
@@ -26,7 +27,7 @@ class AppLoaderViewController: UIViewController {
     //MARK: - data
     private var appLoaderViewModel: AppLoaderViewModelProtocol? {
         didSet {
-            bindViewModel()
+            bind()
         }
     }
 
@@ -53,7 +54,7 @@ class AppLoaderViewController: UIViewController {
     }
     
     //MARK: - private func
-    private func bindViewModel() {
+    private func bind() {
         guard let viewModel = appLoaderViewModel else { return Logger.log("no view model") }
         viewModel.bindLaunchData = { self.showFirstScreen() }
         viewModel.bindAlertMessage = { self.updateAlertMessage() }
@@ -91,7 +92,7 @@ class AppLoaderViewController: UIViewController {
         var rootViewController: UIViewController
         if let data = viewModel.launchData {
             data.isFirstLaunch ? (rootViewController = SignUpViewController()) :
-            data.isUserSignedIn ? (rootViewController = TabBar()) : (rootViewController = SignInViewController())
+            data.isUserSignedIn ? (rootViewController = TabBarController()) : (rootViewController = SignInViewController())
         } else {
             updateAlertMessage()
             guard let alert = alert else { return Logger.log("no app loader alert") }
