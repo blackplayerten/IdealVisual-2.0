@@ -22,4 +22,15 @@
 "error.unavalaible" = "Сервис недоступен. Попробуйте позднее...";
 
 //MARK: - auth
-"auth.username" = "имя пользователя";
+"auth.signin" = "Логин";
+"auth.signup" = "Регистрация";
+"auth.username" = "Имя пользователя";
+"auth.email" = "Электронная почта";
+"auth.password" = "Пароль";
+"auth.repeatPassword" = "Повторите пароль";
+
+"wrongAuth.usernameAlreadyExists" = "Такое имя пользователя уже занято";
+"wrongAuth.usernameLengthIsWrong" = "Имя пользователя должно быть более 4 символов";
+"wrongAuth.emailAlreadyExists" = "Такая электронная почта уже занята";
+"wrongAuth.emailFormatIsWrong" = "Неверный формат электронной почты";
+"wrongAuth.passwordLengthIsWrong" = "Пароль должен быть не менее 6 символов";

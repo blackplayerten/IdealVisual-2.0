@@ -33,6 +33,10 @@ final class MultiLineField: UIView, InputFieldBuilder {
     func setDelegate<T>(_with delegate: inout T) {
         
     }
+    
+    func reset() {
+        
+    }
 }
 
 

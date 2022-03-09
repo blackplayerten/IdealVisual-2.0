@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import UIKit
 
-protocol SingleLineFieldDelegate: AnyObject {
-    func setActiveField(singleLineField: SingleLineField)
+protocol InputFieldDelegate: AnyObject {
+    func setActiveField(_ field: InputFieldBuilder)
 }
 
 protocol BlockProtocol: AnyObject {

@@ -14,7 +14,7 @@ enum ErrorStrings: Localizable {
     case unauthorized = "unauthorized"
     case access = "access"
     case unavaliable = "unavalaible"
-    
+
     var prefix: String? {
         "error"
     }

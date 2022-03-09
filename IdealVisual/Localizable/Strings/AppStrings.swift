@@ -22,7 +22,7 @@ enum Locate: Localizable {
 
 enum AppLoaderStrings: Localizable {
     case alert = "alert"
-    
+
     var prefix: String? {
         "loader"
     }

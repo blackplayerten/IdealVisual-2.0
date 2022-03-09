@@ -9,29 +9,58 @@ import Foundation
 import UIKit
 
 protocol SingleLineTypesFieldBuilderBoss: AnyObject {
-    func update(builder: InputFieldBuilder)
+    func update(builder: SingleLineFieldBuilder, delegate: InputFieldDelegate)
     func buildEmailField()
-    func buildPasswordField()
+    func buildPasswordField(repeat repeatPassword: Bool)
 }
 
 final class SingleLineFieldBuilderBoss: SingleLineTypesFieldBuilderBoss {
-    private var builder: InputFieldBuilder?
+    private var builder: SingleLineFieldBuilder?
+    private var delegate: InputFieldDelegate?
 
-    func update(builder: InputFieldBuilder) {
+    func update(builder: SingleLineFieldBuilder, delegate: InputFieldDelegate) {
         self.builder = builder
+        self.delegate = delegate
     }
 
     func buildEmailField() {
-        
+        guard let builder = builder else { Logger.log("no builder for email field"); return }
+        builder.configure()
+        guard let image = UIImage(named: "email")?.withRenderingMode(.alwaysOriginal) else {
+            Logger.log("no image in assets in email field")
+            return
+        }
+        builder.configureIcon(image: image)
+        builder.configureInput(placeholder: AuthStrings.email.localized)
+        builder.configureCountSymbolsLabel()
+        builder.configureBottomObject()
+        builder.setDelegate(_with: &delegate)
     }
 
-    func buildPasswordField() {
-        
+    func buildPasswordField(repeat repeatPassword: Bool) {
+        guard let builder = builder else { Logger.log("no builder for email field"); return }
+        builder.configure()
+        guard let image = UIImage(named: "password")?.withRenderingMode(.alwaysOriginal) else {
+            Logger.log("no image in assets in email field")
+            return
+        }
+        builder.configureIcon(image: image)
+        var placeholder: String
+        repeatPassword ? (placeholder = AuthStrings.repeatPassword.localized) :
+                         (placeholder = AuthStrings.password.localized)
+        builder.configureInput(placeholder: placeholder)
+        builder.configureCountSymbolsLabel()
+        builder.configureBottomObject()
+        builder.setDelegate(_with: &delegate)
     }
 }
 
 final class SingleLineFieldBuilder: InputFieldBuilder {
-    private var singleField = SingleLineField()
+    private var singleField: SingleLineField
+
+    init(parentView: UIView) {
+        singleField = SingleLineField(superView: parentView)
+    }
 
     func configure() {
         singleField.configure()
@@ -56,7 +85,11 @@ final class SingleLineFieldBuilder: InputFieldBuilder {
     func setDelegate<T>(_with delegate: inout T) {
         singleField.setDelegate(_with: &delegate)
     }
-    
+
+    func reset() {
+        singleField = SingleLineField(superView: .init())
+    }
+
     func combineSingleField() -> SingleLineField {
         singleField
     }

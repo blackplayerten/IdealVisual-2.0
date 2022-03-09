@@ -32,4 +32,8 @@ final class MultiLineFieldBuilder: InputFieldBuilder {
     func setDelegate<T>(_with delegate: inout T) {
         
     }
+    
+    func reset() {
+        
+    }
 }

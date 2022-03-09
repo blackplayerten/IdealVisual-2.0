@@ -6,3 +6,17 @@
 //
 
 import Foundation
+
+protocol SignInViewModelProtocol: AnyObject {
+    var bind: (() -> ()) { get set }
+    func login()
+}
+
+final class SignInViewModel: SignInViewModelProtocol {
+
+    var bind: (() -> ()) = {}
+
+    func login() {
+        
+    }
+}

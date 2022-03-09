@@ -9,8 +9,15 @@ import Foundation
 import UIKit
 
 final class NavigationController: UINavigationController {
+    // MARK: - lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        applyTheme()
+    }
+
+    // MARK: - func
     func applyTheme() {
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.tintColor = AppTheme.shared.colorsComponents.background
+        navigationBar.isTranslucent = false
+        navigationBar.tintColor = AppTheme.shared.colorsComponents.background
     }
 }

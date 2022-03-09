@@ -8,15 +8,19 @@
 import Foundation
 
 protocol AppLoaderViewModelProtocol: AnyObject {
-    var bindLaunchData : (() -> ()) { get set }
-    var bindAlertMessage : (() -> ()) { get set }
-    var launchData : AppLoaderModel? { get }
-    var alertUpdatedMessage : String { get }
+    var bindLaunchData: (() -> ()) { get set }
+    var bindAlertMessage: (() -> ()) { get set }
+    var launchData: AppLoaderModel? { get }
+    var alertUpdatedMessage: String { get }
 
     func launchApp()
 }
 
 final class AppLoaderViewModel: AppLoaderViewModelProtocol {
+    // MARK: - vars
+    var bindLaunchData: (() -> ()) = {}
+    var bindAlertMessage: (() -> ()) = {}
+
     fileprivate var appLoaderServise: AppLoaderModelServiceProtocol
 
     private(set) var launchData: AppLoaderModel? {
@@ -31,13 +35,11 @@ final class AppLoaderViewModel: AppLoaderViewModelProtocol {
         }
     }
 
-    var bindLaunchData: (() -> ()) = {}
-    var bindAlertMessage: (() -> ()) = {}
-
     init() {
         self.appLoaderServise = AppLoaderModelService()
     }
 
+    // MARK: - func
     func launchApp() {
         appLoaderServise.launch { [weak self] result in
             guard let self = self else { return Logger.log("nill self") }

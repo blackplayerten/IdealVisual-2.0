@@ -57,10 +57,13 @@
 		188C66EA276E732600DB0408 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 188C66E9276E732600DB0408 /* SnapKit */; };
 		188C66EC276E761500DB0408 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C66EB276E761500DB0408 /* Fonts.swift */; };
 		188C66EE276E7A7300DB0408 /* MatchingErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C66ED276E7A7300DB0408 /* MatchingErrors.swift */; };
-		18BAB58727AAB34100B92F93 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAB58627AAB34100B92F93 /* NavigationController.swift */; };
+		18965E6F27C3AA85001B3342 /* BackgroundMaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18965E6E27C3AA85001B3342 /* BackgroundMaskViewController.swift */; };
+		18965E7227C3BEDE001B3342 /* BackgroundMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18965E7127C3BEDE001B3342 /* BackgroundMaskView.swift */; };
+		18965E7427C3C1A0001B3342 /* BackgroundMaskMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18965E7327C3C1A0001B3342 /* BackgroundMaskMove.swift */; };
 		18BAB58A27AABA9900B92F93 /* FeedProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAB58927AABA9900B92F93 /* FeedProtocols.swift */; };
 		18BAB59327AACA7600B92F93 /* FeedModelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAB59227AACA7600B92F93 /* FeedModelService.swift */; };
 		18BAB59927B682ED00B92F93 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 18BAB59827B682ED00B92F93 /* PromiseKit */; };
+		18BAB59B27B7D98100B92F93 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAB59A27B7D98100B92F93 /* NavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,9 +139,12 @@
 		1870B33C276392F400E10D8C /* Routing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routing.swift; sourceTree = "<group>"; };
 		188C66EB276E761500DB0408 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		188C66ED276E7A7300DB0408 /* MatchingErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingErrors.swift; sourceTree = "<group>"; };
-		18BAB58627AAB34100B92F93 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		18965E6E27C3AA85001B3342 /* BackgroundMaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMaskViewController.swift; sourceTree = "<group>"; };
+		18965E7127C3BEDE001B3342 /* BackgroundMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMaskView.swift; sourceTree = "<group>"; };
+		18965E7327C3C1A0001B3342 /* BackgroundMaskMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMaskMove.swift; sourceTree = "<group>"; };
 		18BAB58927AABA9900B92F93 /* FeedProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedProtocols.swift; sourceTree = "<group>"; };
 		18BAB59227AACA7600B92F93 /* FeedModelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModelService.swift; sourceTree = "<group>"; };
+		18BAB59A27B7D98100B92F93 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,7 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				1828233E2752AE32006EB8FB /* TabBarController.swift */,
-				18BAB58627AAB34100B92F93 /* NavigationController.swift */,
+				18BAB59A27B7D98100B92F93 /* NavigationController.swift */,
 			);
 			path = bars;
 			sourceTree = "<group>";
@@ -366,6 +372,7 @@
 		183D228F276E8DFC00608668 /* customElemets */ = {
 			isa = PBXGroup;
 			children = (
+				18965E7027C3BEB6001B3342 /* backgroundMask */,
 				183D2296276F406000608668 /* InputFields */,
 			);
 			path = customElemets;
@@ -429,6 +436,16 @@
 				18058CAA27639CA4000A95A5 /* ServiceErrors.swift */,
 			);
 			path = service;
+			sourceTree = "<group>";
+		};
+		18965E7027C3BEB6001B3342 /* backgroundMask */ = {
+			isa = PBXGroup;
+			children = (
+				18965E6E27C3AA85001B3342 /* BackgroundMaskViewController.swift */,
+				18965E7127C3BEDE001B3342 /* BackgroundMaskView.swift */,
+				18965E7327C3C1A0001B3342 /* BackgroundMaskMove.swift */,
+			);
+			path = backgroundMask;
 			sourceTree = "<group>";
 		};
 		18BAB58F27AAC0CF00B92F93 /* post */ = {
@@ -593,8 +610,9 @@
 				182823382752AD41006EB8FB /* SignInViewModel.swift in Sources */,
 				1828232A2752ABED006EB8FB /* AppLoaderModelService.swift in Sources */,
 				182823312752AD04006EB8FB /* SignUpViewController.swift in Sources */,
+				18BAB59B27B7D98100B92F93 /* NavigationController.swift in Sources */,
+				18965E6F27C3AA85001B3342 /* BackgroundMaskViewController.swift in Sources */,
 				188C66EE276E7A7300DB0408 /* MatchingErrors.swift in Sources */,
-				18BAB58727AAB34100B92F93 /* NavigationController.swift in Sources */,
 				18058CAE2763ACE2000A95A5 /* LightThemeClolors.swift in Sources */,
 				182822E92752A6F1006EB8FB /* AppDelegate.swift in Sources */,
 				183D22A8276FD76F00608668 /* InputFieldBuilderProtocol.swift in Sources */,
@@ -603,10 +621,12 @@
 				1828234D2752B0E0006EB8FB /* AppStrings.swift in Sources */,
 				183D22A6276FD61600608668 /* MultiLineFieldBuilder.swift in Sources */,
 				182822EB2752A6F1006EB8FB /* SceneDelegate.swift in Sources */,
+				18965E7227C3BEDE001B3342 /* BackgroundMaskView.swift in Sources */,
 				1828233A2752AD57006EB8FB /* AuthModelService.swift in Sources */,
 				183D22AD2770D26500608668 /* FeedCollectionViewCell.swift in Sources */,
 				18058CB02763B13E000A95A5 /* DarkThemeColors.swift in Sources */,
 				183D22AB2770CE2F00608668 /* FeedCollectionView.swift in Sources */,
+				18965E7427C3C1A0001B3342 /* BackgroundMaskMove.swift in Sources */,
 				1870B33D276392F400E10D8C /* Routing.swift in Sources */,
 				183D22A4276FD57900608668 /* SingleLineFieldBuilder.swift in Sources */,
 				182823262752AAC7006EB8FB /* AppTheme.swift in Sources */,
