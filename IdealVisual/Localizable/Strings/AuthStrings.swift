@@ -14,6 +14,7 @@ enum AuthStrings: Localizable {
     case username = "username"
     case password = "password"
     case repeatPassword = "repeatPassword"
+    case haventAccount = "haventAccount"
 
     var prefix: String? {
         "auth"

@@ -15,11 +15,22 @@ final class BackgroundMaskViewController: UIViewController {
         static let imageBottomPadding = 20.0
         static let imageSize: CGSize = .init(width: 150.0, height: 150.0)
     }
+
     var backgroundMaskView: BackgroundMaskView
-    var currentHeight: CGFloat = 0.0
-    var canDismiss: Bool = false
-    var makeRounded: Bool = true
-    var addImage: Bool = false
+    private var imageView = UIImageView()
+    private var scroll: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.scrollsToTop = true
+        scroll.keyboardDismissMode = .onDrag
+        return scroll
+    }()
+    var contentView = UIView()
+
+    var currentHeight = 0.0
+    var canMove = false
+    var canDismiss = false
+    var makeRounded = true
+    var addImage = false
 
     enum BackgroundMaskHeight: CGFloat {
         case small
@@ -33,6 +44,8 @@ final class BackgroundMaskViewController: UIViewController {
                                                 positionCornerRadius: positionCornerRadius)
         super.init(nibName: nil, bundle: .main)
         currentHeight = getBackgroundMaskHeight(height: height)
+        let hideKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(hideKeyboard)
     }
 
     required init?(coder: NSCoder) {
@@ -44,12 +57,15 @@ final class BackgroundMaskViewController: UIViewController {
         super.viewDidLoad()
         applyTheme()
         addBackgroundMask(height: currentHeight)
-        setupPanGesture()
+        if canMove {
+            setupPanGesture()
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animatePresentBackgroundMask()
+        setupScroll()
     }
 
     override func viewDidLayoutSubviews() {
@@ -71,8 +87,11 @@ final class BackgroundMaskViewController: UIViewController {
         }
     }
 
-    func setupImage() {
-        let imageView = UIImageView(image: UIImage(named: "mask_hello")?.withRenderingMode(.alwaysOriginal))
+    func setImage(image: UIImage) {
+        imageView = UIImageView(image: image.withRenderingMode(.alwaysOriginal))
+    }
+
+    func setupImageView() {
         view.addSubview(imageView)
         imageView.snp.makeConstraints {
             $0.bottom.equalTo(backgroundMaskView.snp.top).offset(UIConstants.imageBottomPadding)
@@ -82,9 +101,27 @@ final class BackgroundMaskViewController: UIViewController {
     }
 
     // MARK: - private func
+
+    @objc
+    fileprivate func hideKeyboard() {
+        view.endEditing(true)
+    }
+
     private func applyTheme() {
         view.backgroundColor = .clear
         backgroundMaskView.backgroundColor = AppTheme.shared.colorsComponents.background
+    }
+
+    private func setupScroll() {
+        backgroundMaskView.addSubview(scroll)
+        scroll.snp.makeConstraints {
+            $0.left.top.right.bottom.equalToSuperview()
+        }
+        scroll.addSubview(contentView)
+        contentView.snp.makeConstraints {
+            $0.top.left.right.bottom.equalToSuperview()
+            $0.width.height.equalToSuperview()
+        }
     }
 
     private func addBackgroundMask(height: CGFloat) {

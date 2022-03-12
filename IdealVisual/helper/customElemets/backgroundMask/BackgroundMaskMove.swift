@@ -25,7 +25,7 @@ extension BackgroundMaskViewController {
                 $0.height.equalTo(self.currentHeight)
             }
             if self.addImage {
-                self.setupImage()
+                self.setupImageView()
             }
             self.view.layoutIfNeeded()
         }

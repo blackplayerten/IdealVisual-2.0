@@ -14,7 +14,7 @@ final class DarkThemeColors: AppThemeColorsComponents {
     }()
 
     var titleText: UIColor = {
-        .black
+        .white
     }()
 
     var secondaryText: UIColor = {
@@ -31,6 +31,10 @@ final class DarkThemeColors: AppThemeColorsComponents {
     
     var saveButtonBackground: UIColor = {
         .systemGreen
+    }()
+
+    var buttonBackground: UIColor = {
+        .init(red: 0.892, green: 0.812, blue: 0.739, alpha: 1)
     }()
 
     var saveButtonText: UIColor = {

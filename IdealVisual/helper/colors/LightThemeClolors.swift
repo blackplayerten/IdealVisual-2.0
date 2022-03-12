@@ -33,6 +33,10 @@ final class LightThemeColors: AppThemeColorsComponents {
         .systemGreen
     }()
 
+    var buttonBackground: UIColor = {
+        .init(red: 0.892, green: 0.812, blue: 0.739, alpha: 1)
+    }()
+
     var saveButtonText: UIColor = {
         .black
     }()

@@ -15,6 +15,7 @@ protocol AppThemeColorsComponents: AnyObject {
     var inputFiledPlaceholder: UIColor { get }
     var inputFieldText: UIColor { get }
     var saveButtonBackground: UIColor { get set }
+    var buttonBackground: UIColor { get set }
     var saveButtonText: UIColor { get set }
     var defaultAvatar: UIColor { get set }
     var loadingIndicator: UIColor { get set }

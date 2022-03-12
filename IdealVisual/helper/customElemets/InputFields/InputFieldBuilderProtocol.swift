@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 protocol InputFieldBuilder: AnyObject {
+    var frameInput: CGRect { get }
     func configureIcon(image: UIImage)
     func configureInput(placeholder: String)
     func configureCountSymbolsLabel()

@@ -12,20 +12,16 @@ final class SignInViewController: UIViewController {
     // MARK: - constants
     private struct UIConstants {
         static let fieldTop = 5.0
-        static let headerMarginTop = 10.0
-        static let headerMarginLeft = 40.0
-        static let headerHeight = 80.0
         static let loginButtonTop = 20.0
+        static let loginButtonLeftRight = 60.0
+        static let loginButtonHeight = 50.0
+        static let signUpStackViewHeight = 60.0
+        static let signUpStackViewLeftRight = 80.0
     }
 
     // MARK: - ui elements
-    private var maskView = UIView()
-    private var headerView: UILabel = {
-        let label = UILabel()
-        label.text = AuthStrings.signin.localized
-        label.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.large)
-        return label
-    }()
+    private let scroll = UIScrollView()
+    private let contentView = UIView()
 
     private var director: SingleLineTypesFieldBuilderBoss
     private var emailField: SingleLineField?
@@ -35,10 +31,28 @@ final class SignInViewController: UIViewController {
     private var loginButton: UIButton = {
         let button = UIButton()
         button.setTitle(AuthStrings.signin.localized, for: .normal)
+        button.setTitleColor(AppTheme.shared.colorsComponents.titleText, for: .normal)
         button.titleLabel?.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.large)
-        button.backgroundColor = AppTheme.shared.colorsComponents.saveButtonBackground
+        button.backgroundColor = AppTheme.shared.colorsComponents.buttonBackground
         button.layer.cornerRadius = 15
         button.addTarget(self, action: #selector(login), for: .touchUpInside)
+        return button
+    }()
+
+    private var haventAccountLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = AppTheme.shared.colorsComponents.secondaryText
+        label.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.small)
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
+
+    private var signUpButton: UIButton = {
+        let button = UIButton()
+        button.setTitle(AuthStrings.signup.localized, for: .normal)
+        button.setTitleColor(AppTheme.shared.colorsComponents.titleText, for: .normal)
+        button.titleLabel?.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.small)
+        button.addTarget(self, action: #selector(showSignUp), for: .touchUpInside)
         return button
     }()
 
@@ -61,30 +75,37 @@ final class SignInViewController: UIViewController {
     // MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        applyTheme()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow(_:)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(_:)),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+        setupScroll()
         configureFields(director: director)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        addMask()
-        setupHeader()
         setupFields()
         setupLoginButton()
+        setupSignUpStackView()
     }
 
-    // MARK: func
-
     // MARK: - private func
-    private func applyTheme() {
-        let backgroundImage = UIImageView(image: UIImage(named: "background-feed")?.withRenderingMode(.alwaysOriginal))
-        backgroundImage.contentMode = .scaleAspectFill
-        view.insertSubview(backgroundImage, at: 0)
-        view.backgroundColor = AppTheme.shared.colorsComponents.background
+    private func setupScroll() {
+        view.addSubview(scroll)
+        scroll.snp.makeConstraints {
+            $0.left.right.top.bottom.equalToSuperview()
+        }
+        scroll.addSubview(contentView)
+        contentView.snp.makeConstraints {
+            $0.left.right.top.bottom.equalToSuperview()
+            $0.width.height.equalTo(view)
+        }
+        scroll.contentSize = contentView.frame.size
     }
 
     private func configureFields(director: SingleLineTypesFieldBuilderBoss) {
-        let builder = SingleLineFieldBuilder(parentView: maskView)
+        let builder = SingleLineFieldBuilder(parentView: contentView)
         director.update(builder: builder, delegate: self)
         director.buildEmailField()
         emailField = builder.combineSingleField()
@@ -94,24 +115,6 @@ final class SignInViewController: UIViewController {
         builder.reset()
     }
 
-    private func addMask() {
-        let mask = BackgroundMaskViewController(height: .large, cornerRadusMask: .large, positionCornerRadius: .top)
-        mask.modalPresentationStyle = .overCurrentContext
-        mask.makeRounded = true
-        mask.addImage = true
-        maskView = mask.backgroundMaskView
-        present(mask, animated: false)
-    }
-
-    private func setupHeader() {
-        maskView.addSubview(headerView)
-        headerView.snp.makeConstraints {
-            $0.left.right.equalToSuperview().offset(UIConstants.headerMarginLeft)
-            $0.top.equalToSuperview().offset(UIConstants.headerMarginTop)
-            $0.height.equalTo(UIConstants.headerHeight)
-        }
-    }
-
     private func setupFields() {
         guard let emailField = emailField,
               let passwordField = passwordField else {
@@ -119,13 +122,13 @@ final class SignInViewController: UIViewController {
             return
         }
         [emailField, passwordField].forEach {
-            maskView.addSubview($0)
+            contentView.addSubview($0)
             $0.snp.makeConstraints {
                 $0.centerX.equalToSuperview()
             }
         }
         emailField.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom)
+            $0.top.equalToSuperview()
         }
         passwordField.snp.makeConstraints {
             $0.top.equalTo(emailField.snp.bottom)
@@ -134,19 +137,41 @@ final class SignInViewController: UIViewController {
 
     private func setupLoginButton() {
         guard let passwordField = passwordField else { return }
-        maskView.addSubview(loginButton)
+        contentView.addSubview(loginButton)
         loginButton.snp.makeConstraints {
             $0.top.equalTo(passwordField.snp.bottom).offset(UIConstants.loginButtonTop)
-            $0.left.equalToSuperview().offset(UIConstants.headerMarginLeft)
-            $0.left.equalToSuperview().inset(UIConstants.headerMarginLeft)
+            $0.left.equalToSuperview().offset(UIConstants.loginButtonLeftRight)
+            $0.right.equalToSuperview().inset(UIConstants.loginButtonLeftRight)
+            $0.height.equalTo(UIConstants.loginButtonHeight)
             $0.centerX.equalToSuperview()
         }
     }
 
+    private func setupSignUpStackView() {
+        let stackView = UIStackView(arrangedSubviews: [haventAccountLabel, signUpButton])
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
+        contentView.addSubview(stackView)
+        stackView.snp.makeConstraints {
+            $0.top.equalTo(loginButton.snp.bottom).offset(UIConstants.fieldTop)
+            $0.left.equalToSuperview().offset(UIConstants.signUpStackViewLeftRight)
+            $0.right.equalToSuperview().inset(UIConstants.signUpStackViewLeftRight)
+            $0.height.equalTo(UIConstants.signUpStackViewHeight)
+        }
+        haventAccountLabel.text = AuthStrings.haventAccount.localized
+    }
+
+    // MARK: - actions
     @objc
     private func login() {
         guard let viewModel = viewModel else { return Logger.log("no view model") }
         viewModel.login()
+    }
+
+    @objc
+    private func showSignUp() {
+        let signUp = SignUpViewController()
+        present(signUp, animated: true)
     }
 }
 
@@ -154,5 +179,30 @@ final class SignInViewController: UIViewController {
 extension SignInViewController: InputFieldDelegate {
     func setActiveField(_ field: InputFieldBuilder) {
         activeField = field
+    }
+}
+
+// MARK: - keyboard
+extension SignInViewController {
+    @objc
+    func keyboardWillShow(_ notification: Notification) {
+        let info = notification.userInfo!
+        guard let rect: CGRect = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        let keyboardSize = rect.size
+        let visiblePartScreenWithoutKeyboard = scroll.bounds.height - keyboardSize.height
+    
+        let tr = scroll.convert(haventAccountLabel.frame, to: nil)
+
+        if tr.origin.y > visiblePartScreenWithoutKeyboard {
+            let insets = UIEdgeInsets(top: 0, left: 0, bottom: haventAccountLabel.frame.height, right: 0)
+            scroll.contentInset = insets
+            scroll.scrollIndicatorInsets = insets
+        }
+    }
+
+    @objc
+    func keyboardWillHide(_ notification: Notification) {
+        scroll.contentInset = .zero
+        scroll.scrollIndicatorInsets = .zero
     }
 }

@@ -56,10 +56,13 @@ final class SingleLineFieldBuilderBoss: SingleLineTypesFieldBuilderBoss {
 }
 
 final class SingleLineFieldBuilder: InputFieldBuilder {
+    var frameInput: CGRect
+    
     private var singleField: SingleLineField
 
     init(parentView: UIView) {
         singleField = SingleLineField(superView: parentView)
+        frameInput = singleField.frame
     }
 
     func configure() {

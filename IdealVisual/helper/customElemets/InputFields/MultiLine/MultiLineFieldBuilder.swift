@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 final class MultiLineFieldBuilder: InputFieldBuilder {
+    var frameInput: CGRect = .zero
+    
     func configure() {
         
     }

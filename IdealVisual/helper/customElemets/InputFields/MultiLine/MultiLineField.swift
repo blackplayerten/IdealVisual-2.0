@@ -10,6 +10,8 @@ import UIKit
 import SnapKit
 
 final class MultiLineField: UIView, InputFieldBuilder {
+    var frameInput: CGRect = .zero
+    
     func configure() {
         
     }

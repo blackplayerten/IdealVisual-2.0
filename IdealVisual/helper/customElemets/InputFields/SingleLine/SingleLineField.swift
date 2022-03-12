@@ -33,6 +33,7 @@ final class SingleLineField: UIView, InputFieldBuilder {
     var validator: Validator?
 
     private weak var singleLineDelegate: InputFieldDelegate?
+    var frameInput: CGRect = .zero
 
     //MARK: - configure builder elements
     init(superView: UIView) {

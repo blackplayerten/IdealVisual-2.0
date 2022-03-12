@@ -90,11 +90,10 @@ class AppLoaderViewController: UIViewController {
     private func showFirstScreen() {
         guard let viewModel = appLoaderViewModel else { return Logger.log("no view model") }
         var rootViewController: UIViewController
-        let director = SingleLineFieldBuilderBoss()
         if let data = viewModel.launchData {
-            data.isFirstLaunch ? (rootViewController = SignUpViewController()) :
+            data.isFirstLaunch ? (rootViewController = AuthViewController(type: .signUp)) :
             data.isUserSignedIn ? (rootViewController = TabBarController()) :
-            (rootViewController = SignInViewController(director: director))
+            (rootViewController = AuthViewController(type: .signIn))
         } else {
             updateAlertMessage()
             guard let alert = alert else { return Logger.log("no app loader alert") }

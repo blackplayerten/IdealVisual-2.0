@@ -60,6 +60,7 @@
 		18965E6F27C3AA85001B3342 /* BackgroundMaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18965E6E27C3AA85001B3342 /* BackgroundMaskViewController.swift */; };
 		18965E7227C3BEDE001B3342 /* BackgroundMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18965E7127C3BEDE001B3342 /* BackgroundMaskView.swift */; };
 		18965E7427C3C1A0001B3342 /* BackgroundMaskMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18965E7327C3C1A0001B3342 /* BackgroundMaskMove.swift */; };
+		18965E7627DA27D1001B3342 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18965E7527DA27D1001B3342 /* AuthViewController.swift */; };
 		18BAB58A27AABA9900B92F93 /* FeedProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAB58927AABA9900B92F93 /* FeedProtocols.swift */; };
 		18BAB59327AACA7600B92F93 /* FeedModelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAB59227AACA7600B92F93 /* FeedModelService.swift */; };
 		18BAB59927B682ED00B92F93 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 18BAB59827B682ED00B92F93 /* PromiseKit */; };
@@ -142,6 +143,7 @@
 		18965E6E27C3AA85001B3342 /* BackgroundMaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMaskViewController.swift; sourceTree = "<group>"; };
 		18965E7127C3BEDE001B3342 /* BackgroundMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMaskView.swift; sourceTree = "<group>"; };
 		18965E7327C3C1A0001B3342 /* BackgroundMaskMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMaskMove.swift; sourceTree = "<group>"; };
+		18965E7527DA27D1001B3342 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		18BAB58927AABA9900B92F93 /* FeedProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedProtocols.swift; sourceTree = "<group>"; };
 		18BAB59227AACA7600B92F93 /* FeedModelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModelService.swift; sourceTree = "<group>"; };
 		18BAB59A27B7D98100B92F93 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 		1828232C2752AC56006EB8FB /* auth */ = {
 			isa = PBXGroup;
 			children = (
+				18965E7527DA27D1001B3342 /* AuthViewController.swift */,
 				1828232F2752ACE7006EB8FB /* signUp */,
 				1828232E2752ACDE006EB8FB /* signIn */,
 				182823392752AD57006EB8FB /* AuthModelService.swift */,
@@ -637,6 +640,7 @@
 				182823362752AD32006EB8FB /* SignUpViewModel.swift in Sources */,
 				18BAB59327AACA7600B92F93 /* FeedModelService.swift in Sources */,
 				183D22B527A81A3600608668 /* FeedCollectionViewDataSource.swift in Sources */,
+				18965E7627DA27D1001B3342 /* AuthViewController.swift in Sources */,
 				18058CB22763B1DD000A95A5 /* AppThemeColorsComponents.swift in Sources */,
 				183D229E276F51AB00608668 /* MultiLineField.swift in Sources */,
 				18BAB58A27AABA9900B92F93 /* FeedProtocols.swift in Sources */,
