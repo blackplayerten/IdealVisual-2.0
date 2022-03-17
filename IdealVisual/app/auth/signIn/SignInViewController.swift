@@ -62,9 +62,11 @@ final class SignInViewController: UIViewController {
            
         }
     }
+    weak var delegate: AuthViewControllerDelegate?
 
-    init(director: SingleLineTypesFieldBuilderBoss) {
+    init(director: SingleLineTypesFieldBuilderBoss, delegate: AuthViewControllerDelegate) {
         self.director = director
+        self.delegate = delegate
         super.init(nibName: nil, bundle: .main)
     }
 
@@ -170,8 +172,11 @@ final class SignInViewController: UIViewController {
 
     @objc
     private func showSignUp() {
-        let signUp = SignUpViewController()
-        present(signUp, animated: true)
+        guard let delegate = delegate else {
+            Logger.log("no auth delegate")
+            return
+        }
+        delegate.navigateAuthVC(type: .signUp, from: self)
     }
 }
 
@@ -182,8 +187,8 @@ extension SignInViewController: InputFieldDelegate {
     }
 }
 
-// MARK: - keyboard
 extension SignInViewController {
+    // MARK: - keyboard
     @objc
     func keyboardWillShow(_ notification: Notification) {
         let info = notification.userInfo!

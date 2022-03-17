@@ -20,6 +20,7 @@
 "error.unauthorized" = "You are unauthorized";
 "error.access" = "You haven't access";
 "error.unavalaible" = "Servise unavaliable now. Try later...";
+"error.warning" = "Warning";
 
 //MARK: - auth
 "auth.signin" = "Log-in";
@@ -35,3 +36,14 @@
 "wrongAuth.emailAlreadyExists" = "Email is already exists";
 "wrongAuth.emailFormatIsWrong" = "Invalid email format";
 "wrongAuth.passwordLengthIsWrong" = "Password must be more than 6 symbols";
+
+//MARK: - photo
+"photo.camera" = "Camera";
+"photo.gallery" = "Photo Library";
+"photo.haventCamera" = "You don't have camera";
+"photo.wrongGallery" = "Something was wrong with photo libraty. Try later...";
+"photo.case wrongSavedPhoto" = "Something was wrong with saved photo libraty album. Try later...";
+
+//MARK: - common
+"common.cancel" = "Cancel";
+"common.ok" = "OK";

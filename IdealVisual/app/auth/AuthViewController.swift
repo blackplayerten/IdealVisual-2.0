@@ -18,19 +18,15 @@ final class AuthViewController: UIViewController {
     }
 
     // MARK: - ui elements
-    private let mask = BackgroundMaskViewController(height: .large, cornerRadusMask: .large, positionCornerRadius: .top)
-    private let type: SignController
-    private var headerView: UILabel = {
+    private let director = SingleLineFieldBuilderBoss()
+    let mask = BackgroundMaskViewController(height: .large, cornerRadusMask: .large, positionCornerRadius: .top)
+    private let type: AuthViewControllerType
+    var headerView: UILabel = {
         let label = UILabel()
         label.textColor = AppTheme.shared.colorsComponents.titleText
         label.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.large)
         return label
     }()
-
-    enum SignController {
-        case signIn
-        case signUp
-    }
 
     // MARK: - lifecycle
     override func viewDidLoad() {
@@ -42,11 +38,11 @@ final class AuthViewController: UIViewController {
         super.viewDidAppear(animated)
         addMask()
         setupHeader()
-        showSignViewController()
+        navigateAuthVC(type: type, from: self)
     }
 
     // MARK: func
-    init(type: SignController) {
+    init(type: AuthViewControllerType) {
         self.type = type
         super.init(nibName: nil, bundle: .main)
     }
@@ -79,25 +75,45 @@ final class AuthViewController: UIViewController {
         mask.setImage(image: UIImage(named: "mask_hello")!)
         present(mask, animated: false)
     }
+}
 
-    private func showSignViewController() {
-        let director = SingleLineFieldBuilderBoss()
+// MARK: - extension
+extension AuthViewController: AuthViewControllerDelegate {
+    func updateHeader(type: AuthViewControllerType) {
         switch type {
         case .signIn:
             headerView.text = AuthStrings.signin.localized
-            let signInVC = SignInViewController(director: director)
-            mask.contentView.addSubview(signInVC.view)
-            signInVC.view.snp.makeConstraints {
-                $0.top.equalTo(headerView.snp.bottom)
-                $0.left.right.bottom.equalToSuperview()
-            }
-            signInVC.view.backgroundColor = .clear
-            mask.addChild(signInVC)
-            signInVC.didMove(toParent: mask)
         case .signUp:
-            let signUpVC = SignUpViewController()
             headerView.text = AuthStrings.signup.localized
-            present(signUpVC, animated: true)
         }
+    }
+
+    func navigateAuthVC(type: AuthViewControllerType, from vc: UIViewController) {
+        var rootVC = vc
+        switch type {
+        case .signIn:
+            rootVC = SignInViewController(director: director, delegate: self)
+        case .signUp:
+            rootVC = SignUpViewController(director: director, delegate: self)
+        }
+        rootVC.view.backgroundColor = AppTheme.shared.colorsComponents.background
+        mask.contentView.addSubview(rootVC.view)
+        rootVC.view.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom)
+            $0.left.right.bottom.equalToSuperview()
+        }
+        mask.addChild(rootVC)
+        rootVC.didMove(toParent: mask)
+        updateHeader(type: type)
+        guard let _ = vc as? AuthViewController else {
+            removePrevChildFromParent(vc: vc)
+            return
+        }
+        
+    }
+
+    private func removePrevChildFromParent(vc: UIViewController) {
+        vc.view.removeFromSuperview()
+        vc.removeFromParent()
     }
 }
