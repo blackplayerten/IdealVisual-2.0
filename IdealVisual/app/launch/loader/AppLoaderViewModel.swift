@@ -5,8 +5,6 @@
 //  Created by Sasha Kurganova on 27.11.2021.
 //
 
-import Foundation
-
 protocol AppLoaderViewModelProtocol: AnyObject {
     var bindLaunchData: (() -> ()) { get set }
     var bindAlertMessage: (() -> ()) { get set }

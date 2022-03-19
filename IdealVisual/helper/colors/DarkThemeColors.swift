@@ -5,7 +5,6 @@
 //  Created by Sasha Kurganova on 10.12.2021.
 //
 
-import Foundation
 import UIKit
 
 final class DarkThemeColors: AppThemeColorsComponents {

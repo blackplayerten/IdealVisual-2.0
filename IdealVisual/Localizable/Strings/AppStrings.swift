@@ -5,8 +5,6 @@
 //  Created by Sasha Kurganova on 27.11.2021.
 //
 
-import Foundation
-
 enum Locate: Localizable {
     case rus = "rus"
     case en = "en"

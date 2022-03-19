@@ -5,8 +5,6 @@
 //  Created by Sasha Kurganova on 27.11.2021.
 //
 
-import Foundation
-
 protocol AppLoaderModelServiceProtocol: AnyObject {
     func launch(completion: @escaping (Result<AppLoaderModel, ServiceErrors>) -> Void)
 }

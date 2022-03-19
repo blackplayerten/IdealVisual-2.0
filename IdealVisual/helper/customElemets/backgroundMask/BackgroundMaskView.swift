@@ -5,7 +5,6 @@
 //  Created by Sasha Kurganova on 21.02.2022.
 //
 
-import Foundation
 import UIKit
 
 enum CornerRaduisMask: Int {

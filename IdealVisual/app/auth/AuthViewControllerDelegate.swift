@@ -5,7 +5,6 @@
 //  Created by Sasha Kurganova on 14.03.2022.
 //
 
-import Foundation
 import UIKit
 
 protocol AuthViewControllerDelegate: AnyObject {

@@ -52,6 +52,7 @@
 		183D22B527A81A3600608668 /* FeedCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183D22B427A81A3600608668 /* FeedCollectionViewDataSource.swift */; };
 		183D22B927A81B6100608668 /* FeedCollectionViewDrag&DropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183D22B827A81B6100608668 /* FeedCollectionViewDrag&DropDelegate.swift */; };
 		183D22BD27A81B9C00608668 /* FeedCollectionViewFlowLayoutDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183D22BC27A81B9C00608668 /* FeedCollectionViewFlowLayoutDelegate.swift */; };
+		185815E727E628AF00EC5018 /* AuthComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185815E627E628AF00EC5018 /* AuthComponents.swift */; };
 		1870B33B276392E400E10D8C /* HttpEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870B33A276392E400E10D8C /* HttpEntity.swift */; };
 		1870B33D276392F400E10D8C /* Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870B33C276392F400E10D8C /* Routing.swift */; };
 		188C66EA276E732600DB0408 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 188C66E9276E732600DB0408 /* SnapKit */; };
@@ -142,6 +143,7 @@
 		183D22B427A81A3600608668 /* FeedCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		183D22B827A81B6100608668 /* FeedCollectionViewDrag&DropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedCollectionViewDrag&DropDelegate.swift"; sourceTree = "<group>"; };
 		183D22BC27A81B9C00608668 /* FeedCollectionViewFlowLayoutDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewFlowLayoutDelegate.swift; sourceTree = "<group>"; };
+		185815E627E628AF00EC5018 /* AuthComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthComponents.swift; sourceTree = "<group>"; };
 		1870B33A276392E400E10D8C /* HttpEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpEntity.swift; sourceTree = "<group>"; };
 		1870B33C276392F400E10D8C /* Routing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routing.swift; sourceTree = "<group>"; };
 		188C66EB276E761500DB0408 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 		183D228F276E8DFC00608668 /* customElemets */ = {
 			isa = PBXGroup;
 			children = (
+				185815E627E628AF00EC5018 /* AuthComponents.swift */,
 				18965E8027DF7960001B3342 /* AvatarViewController.swift */,
 				18965E7027C3BEB6001B3342 /* backgroundMask */,
 				183D2296276F406000608668 /* InputFields */,
@@ -677,6 +680,7 @@
 				182822F32752A6F1006EB8FB /* IdealVisual.xcdatamodeld in Sources */,
 				183D22A0276FD47300608668 /* ErrorStrings.swift in Sources */,
 				18965E8627E0AFEE001B3342 /* PhotoPermissions.swift in Sources */,
+				185815E727E628AF00EC5018 /* AuthComponents.swift in Sources */,
 				182823362752AD32006EB8FB /* SignUpViewModel.swift in Sources */,
 				18BAB59327AACA7600B92F93 /* FeedModelService.swift in Sources */,
 				183D22B527A81A3600608668 /* FeedCollectionViewDataSource.swift in Sources */,

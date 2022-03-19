@@ -5,9 +5,7 @@
 //  Created by Sasha Kurganova on 27.11.2021.
 //
 
-import Foundation
 import UIKit
-import SnapKit
 
 final class FeedViewController: UIViewController {
     var feed = FeedCollectionView()

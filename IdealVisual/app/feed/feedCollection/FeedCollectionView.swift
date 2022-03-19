@@ -5,9 +5,7 @@
 //  Created by Sasha Kurganova on 20.12.2021.
 //
 
-import Foundation
 import UIKit
-import SnapKit
 
 final class FeedCollectionView: UICollectionView {
     var flowLayoutDelegate: FeedCollectionViewFlowLayoutDelegate?

@@ -5,8 +5,6 @@
 //  Created by Sasha Kurganova on 19.12.2021.
 //
 
-import Foundation
-
 enum AuthStrings: Localizable {
     case signin = "signin"
     case signup = "signup"

@@ -5,8 +5,6 @@
 //  Created by Sasha Kurganova on 15.03.2022.
 //
 
-import Foundation
-
 enum PhotoStrings: Localizable {
     case camera
     case gallery

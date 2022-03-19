@@ -5,9 +5,7 @@
 //  Created by Sasha Kurganova on 14.03.2022.
 //
 
-import Foundation
 import UIKit
-import SnapKit
 
 final class AvatarViewController: UIViewController {
     private var image: UIImage

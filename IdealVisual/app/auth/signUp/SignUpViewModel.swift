@@ -5,4 +5,16 @@
 //  Created by Sasha Kurganova on 27.11.2021.
 //
 
-import Foundation
+protocol SignUpViewModelProtocol: AnyObject {
+    var bind: (() -> ()) { get set }
+    func signup()
+}
+
+final class SignUpViewModel: SignUpViewModelProtocol {
+
+    var bind: (() -> ()) = {}
+
+    func signup() {
+        
+    }
+}

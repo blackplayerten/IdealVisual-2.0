@@ -5,7 +5,6 @@
 //  Created by Sasha Kurganova on 31.01.2022.
 //
 
-import Foundation
 import UIKit
 
 final class FeedCollectionViewFlowLayoutDelegate: NSObject, UICollectionViewDelegateFlowLayout {

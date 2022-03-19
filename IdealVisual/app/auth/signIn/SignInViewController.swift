@@ -5,20 +5,9 @@
 //  Created by Sasha Kurganova on 27.11.2021.
 //
 
-import Foundation
 import UIKit
 
 final class SignInViewController: UIViewController {
-    // MARK: - constants
-    private struct UIConstants {
-        static let fieldTop = 5.0
-        static let loginButtonTop = 20.0
-        static let loginButtonLeftRight = 60.0
-        static let loginButtonHeight = 50.0
-        static let signUpStackViewHeight = 60.0
-        static let signUpStackViewLeftRight = 80.0
-    }
-
     // MARK: - ui elements
     private let scroll = UIScrollView()
     private let contentView = UIView()
@@ -28,33 +17,7 @@ final class SignInViewController: UIViewController {
     private var passwordField: SingleLineField?
     private var activeField: InputFieldBuilder?
 
-    private var loginButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(AuthStrings.signin.localized, for: .normal)
-        button.setTitleColor(AppTheme.shared.colorsComponents.titleText, for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.large)
-        button.backgroundColor = AppTheme.shared.colorsComponents.buttonBackground
-        button.layer.cornerRadius = 15
-        button.addTarget(self, action: #selector(login), for: .touchUpInside)
-        return button
-    }()
-
-    private var haventAccountLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = AppTheme.shared.colorsComponents.secondaryText
-        label.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.small)
-        label.lineBreakMode = .byWordWrapping
-        return label
-    }()
-
-    private var signUpButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(AuthStrings.signup.localized, for: .normal)
-        button.setTitleColor(AppTheme.shared.colorsComponents.titleText, for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.small)
-        button.addTarget(self, action: #selector(showSignUp), for: .touchUpInside)
-        return button
-    }()
+    private let authComponents = AuthComponents()
 
     // MARK: - data
     private var viewModel: SignInViewModelProtocol? {
@@ -77,6 +40,16 @@ final class SignInViewController: UIViewController {
     // MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        listenKeyboard()
+        setupScroll()
+        configureFields(director: director)
+        setupFields()
+        configureAuthComponents()
+        setupAuthComponents()
+    }
+
+    // MARK: - private func
+    private func listenKeyboard() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow(_:)),
                                                name: UIResponder.keyboardWillShowNotification,
@@ -85,14 +58,8 @@ final class SignInViewController: UIViewController {
                                                selector: #selector(keyboardWillHide(_:)),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
-        setupScroll()
-        configureFields(director: director)
-        setupFields()
-        setupLoginButton()
-        setupSignUpStackView()
     }
 
-    // MARK: - private func
     private func setupScroll() {
         view.addSubview(scroll)
         scroll.snp.makeConstraints {
@@ -139,28 +106,31 @@ final class SignInViewController: UIViewController {
 
     private func setupLoginButton() {
         guard let passwordField = passwordField else { return }
-        contentView.addSubview(loginButton)
-        loginButton.snp.makeConstraints {
-            $0.top.equalTo(passwordField.snp.bottom).offset(UIConstants.loginButtonTop)
-            $0.left.equalToSuperview().offset(UIConstants.loginButtonLeftRight)
-            $0.right.equalToSuperview().inset(UIConstants.loginButtonLeftRight)
-            $0.height.equalTo(UIConstants.loginButtonHeight)
-            $0.centerX.equalToSuperview()
+        contentView.addSubview(enterButton)
+        enterButton.snp.makeConstraints {
+            $0.top.equalTo(passwordField.snp.bottom).offset(AuthComponents.UIConstants.enterButtonTop)
+            $0.left.equalToSuperview().offset(AuthComponents.UIConstants.enterButtonLeftRight)
+            $0.right.equalToSuperview().inset(AuthComponents.UIConstants.enterButtonLeftRight)
+            $0.height.equalTo(AuthComponents.UIConstants.enterButtonHeight)
         }
     }
 
     private func setupSignUpStackView() {
-        let stackView = UIStackView(arrangedSubviews: [haventAccountLabel, signUpButton])
+        let stackView = UIStackView(arrangedSubviews: [havingAccountLabel, unEnterButton])
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         contentView.addSubview(stackView)
         stackView.snp.makeConstraints {
-            $0.top.equalTo(loginButton.snp.bottom).offset(UIConstants.fieldTop)
-            $0.left.equalToSuperview().offset(UIConstants.signUpStackViewLeftRight)
-            $0.right.equalToSuperview().inset(UIConstants.signUpStackViewLeftRight)
-            $0.height.equalTo(UIConstants.signUpStackViewHeight)
+            $0.top.equalTo(enterButton.snp.bottom).offset(AuthComponents.UIConstants.spacingTop)
+            $0.left.equalToSuperview().offset(AuthComponents.UIConstants.unEnterStackViewLeftRight)
+            $0.right.equalToSuperview().inset(AuthComponents.UIConstants.unEnterStackViewLeftRight)
+            $0.height.equalTo(AuthComponents.UIConstants.unEnterStackViewHeight)
         }
-        haventAccountLabel.text = AuthStrings.haventAccount.localized
+    }
+
+    private func bind() {
+        guard let viewModel = viewModel else { return Logger.log("no view model") }
+        viewModel.bind = { self.showFeed() }
     }
 
     // MARK: - actions
@@ -178,9 +148,34 @@ final class SignInViewController: UIViewController {
         }
         delegate.navigateAuthVC(type: .signUp, from: self)
     }
+
+    @objc
+    private func showFeed() {
+        let feed = FeedViewController()
+        present(feed, animated: true)
+    }
 }
 
 // MARK: - extension
+extension SignInViewController: AuthComponentsProtocol {
+    var enterButton: UIButton { authComponents.enterButton }
+    var unEnterButton: UIButton { authComponents.unEnterButton }
+    var havingAccountLabel: UILabel { authComponents.havingAccountLabel }
+
+    func configureAuthComponents() {
+        authComponents.configure(for: .enter, title: AuthStrings.signin.localized,
+                                target: self, action: #selector(login))
+        authComponents.configure(for: .unEnter, title: AuthStrings.signup.localized,
+                                target: self, action: #selector(self.showSignUp))
+        authComponents.configureHavingAccountLabel(text: AuthStrings.haventAccount.localized)
+    }
+
+    func setupAuthComponents() {
+        setupLoginButton()
+        setupSignUpStackView()
+    }
+}
+
 extension SignInViewController: InputFieldDelegate {
     func setActiveField(_ field: InputFieldBuilder) {
         activeField = field
@@ -196,10 +191,10 @@ extension SignInViewController {
         let keyboardSize = rect.size
         let visiblePartScreenWithoutKeyboard = scroll.bounds.height - keyboardSize.height
     
-        let tr = scroll.convert(haventAccountLabel.frame, to: nil)
+        let tr = scroll.convert(havingAccountLabel.frame, to: nil)
 
         if tr.origin.y > visiblePartScreenWithoutKeyboard {
-            let insets = UIEdgeInsets(top: 0, left: 0, bottom: haventAccountLabel.frame.height, right: 0)
+            let insets = UIEdgeInsets(top: 0, left: 0, bottom: havingAccountLabel.frame.height, right: 0)
             scroll.contentInset = insets
             scroll.scrollIndicatorInsets = insets
         }

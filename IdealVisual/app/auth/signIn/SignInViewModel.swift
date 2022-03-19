@@ -5,8 +5,6 @@
 //  Created by Sasha Kurganova on 27.11.2021.
 //
 
-import Foundation
-
 protocol SignInViewModelProtocol: AnyObject {
     var bind: (() -> ()) { get set }
     func login()

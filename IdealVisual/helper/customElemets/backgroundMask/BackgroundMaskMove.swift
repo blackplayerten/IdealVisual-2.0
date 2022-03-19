@@ -5,9 +5,7 @@
 //  Created by Sasha Kurganova on 21.02.2022.
 //
 
-import Foundation
 import UIKit
-import SnapKit
 
 extension BackgroundMaskViewController {
     // MARK: - func

@@ -5,7 +5,6 @@
 //  Created by Sasha Kurganova on 15.03.2022.
 //
 
-import Foundation
 import Photos
 
 final class PhotoPermissions {

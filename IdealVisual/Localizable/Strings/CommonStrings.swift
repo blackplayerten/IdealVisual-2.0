@@ -5,8 +5,6 @@
 //  Created by Sasha Kurganova on 15.03.2022.
 //
 
-import Foundation
-
 enum CommonStrings: Localizable {
     case cancel
     case ok
