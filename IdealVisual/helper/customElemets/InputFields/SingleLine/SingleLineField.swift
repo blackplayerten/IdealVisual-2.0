@@ -8,6 +8,7 @@
 import UIKit
 
 final class SingleLineField: UIView, InputFieldBuilder {
+    // MARK: - ui constants
     private struct UIConstants {
         static let width: CGFloat = 300.0
         static let height: CGFloat = 60.0
@@ -22,7 +23,7 @@ final class SingleLineField: UIView, InputFieldBuilder {
 
     //MARK: - elements
     private(set) var parentView = UIView()
-    private let iconImageView = UIImageView(image: nil)
+    private let iconImageView = UIImageView()
     private let icon = UIImage()
     private let textField = UITextField()
     private let countSymbolsLabel = UILabel()

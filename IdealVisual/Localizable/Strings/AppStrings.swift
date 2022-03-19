@@ -6,8 +6,8 @@
 //
 
 enum Locate: Localizable {
-    case rus = "rus"
-    case en = "en"
+    case rus
+    case en
 
     var prefix: String? {
         "language"
@@ -19,7 +19,7 @@ enum Locate: Localizable {
 }
 
 enum AppLoaderStrings: Localizable {
-    case alert = "alert"
+    case alert
 
     var prefix: String? {
         "loader"

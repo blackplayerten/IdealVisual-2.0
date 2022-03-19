@@ -8,9 +8,6 @@
 import UIKit
 
 protocol AuthComponentsProtocol: AnyObject {
-    var enterButton: UIButton { get }
-    var unEnterButton: UIButton { get }
-    var havingAccountLabel: UILabel { get }
     func configureAuthComponents()
     func setupAuthComponents()
 }
@@ -32,7 +29,7 @@ final class AuthComponents: AuthComponentsProtocol {
     }
 
     // MARK - ui elements
-    private(set) var enterButton: UIButton = {
+    let enterButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(AppTheme.shared.colorsComponents.titleText, for: .normal)
         button.titleLabel?.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.large)
@@ -41,7 +38,7 @@ final class AuthComponents: AuthComponentsProtocol {
         return button
     }()
 
-    private(set) var havingAccountLabel: UILabel = {
+    let havingAccountLabel: UILabel = {
         let label = UILabel()
         label.textColor = AppTheme.shared.colorsComponents.secondaryText
         label.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.small)
@@ -49,7 +46,7 @@ final class AuthComponents: AuthComponentsProtocol {
         return label
     }()
 
-    private(set) var unEnterButton: UIButton = {
+    let unEnterButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(AppTheme.shared.colorsComponents.titleText, for: .normal)
         button.titleLabel?.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.small)

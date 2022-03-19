@@ -13,6 +13,7 @@ final class AuthViewController: UIViewController {
     private struct UIConstants {
         static let headerMarginTop = 10.0
         static let headerMarginLeft = 40.0
+        static let headerMarginRight = 40.0
         static let headerHeight = 80.0
     }
 
@@ -20,7 +21,7 @@ final class AuthViewController: UIViewController {
     private let director = SingleLineFieldBuilderBoss()
     let mask = BackgroundMaskViewController(height: .large, cornerRadusMask: .large, positionCornerRadius: .top)
     private let type: AuthViewControllerType
-    var headerView: UILabel = {
+    private let headerView: UILabel = {
         let label = UILabel()
         label.textColor = AppTheme.shared.colorsComponents.titleText
         label.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.large)
@@ -52,16 +53,20 @@ final class AuthViewController: UIViewController {
 
     // MARK: - private func
     private func applyTheme() {
-        let backgroundImage = UIImageView(image: UIImage(named: "background-feed")?.withRenderingMode(.alwaysOriginal))
-        backgroundImage.contentMode = .scaleAspectFill
-        view.insertSubview(backgroundImage, at: 0)
-        view.backgroundColor = AppTheme.shared.colorsComponents.background
+        if let backgroundImage = UIImage(named: "background") {
+            let imageView = UIImageView(image: backgroundImage.withRenderingMode(.alwaysOriginal))
+            imageView.contentMode = .scaleAspectFill
+            view.insertSubview(imageView, at: 0)
+        } else {
+            view.backgroundColor = AppTheme.shared.colorsComponents.background
+        }
     }
 
     private func setupHeader() {
         mask.contentView.addSubview(headerView)
         headerView.snp.makeConstraints {
-            $0.left.right.equalToSuperview().offset(UIConstants.headerMarginLeft)
+            $0.left.equalToSuperview().offset(UIConstants.headerMarginLeft)
+            $0.left.equalToSuperview().inset(UIConstants.headerMarginRight)
             $0.top.equalToSuperview().offset(UIConstants.headerMarginTop)
             $0.height.equalTo(UIConstants.headerHeight)
         }
@@ -70,8 +75,10 @@ final class AuthViewController: UIViewController {
     private func addMask() {
         mask.modalPresentationStyle = .overCurrentContext
         mask.makeRounded = true
-        mask.addImage = true
-        mask.setImage(image: UIImage(named: "mask_hello")!)
+        if let image = UIImage(named: "mask_hello") {
+            mask.addImage = true
+            mask.setImage(image: image)
+        }
         present(mask, animated: false)
     }
 }
@@ -105,13 +112,12 @@ extension AuthViewController: AuthViewControllerDelegate {
         rootVC.didMove(toParent: mask)
         updateHeader(type: type)
         guard let _ = vc as? AuthViewController else {
-            removePrevChildFromParent(vc: vc)
+            removeChildFromParent(vc: vc)
             return
         }
-        
     }
 
-    private func removePrevChildFromParent(vc: UIViewController) {
+    func removeChildFromParent(vc: UIViewController) {
         vc.view.removeFromSuperview()
         vc.removeFromParent()
     }

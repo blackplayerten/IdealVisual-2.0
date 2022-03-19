@@ -16,13 +16,13 @@ final class BackgroundMaskViewController: UIViewController {
 
     var backgroundMaskView: BackgroundMaskView
     private var imageView = UIImageView()
-    private var scroll: UIScrollView = {
+    private let scroll: UIScrollView = {
         let scroll = UIScrollView()
         scroll.scrollsToTop = true
         scroll.keyboardDismissMode = .onDrag
         return scroll
     }()
-    var contentView = UIView()
+    let contentView = UIView()
 
     var currentHeight = 0.0
     var canMove = false

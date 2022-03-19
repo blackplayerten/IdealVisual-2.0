@@ -30,6 +30,7 @@
 "auth.password" = "Password";
 "auth.repeatPassword" = "Repeat password";
 "auth.haventAccount" = "Don't have an account?";
+"auth.haveAccount" = "Already have an account?";
 
 "wrongAuth.usernameAlreadyExists" = "Username is already exists";
 "wrongAuth.usernameLengthIsWrong" = "Username length shoud be more than 4 symbols";

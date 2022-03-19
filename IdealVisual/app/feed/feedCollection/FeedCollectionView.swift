@@ -14,7 +14,7 @@ final class FeedCollectionView: UICollectionView {
     private var delegateFeed: FeedCollectionViewDelegate?
     private var dataSourceFeed: FeedCollectionViewDataSource?
     private var dragAndDropDelegateFeed: FeedCollectionViewDragAndDropDelegate?
-    private var flowLayout: UICollectionViewFlowLayout = .init()
+    private let flowLayout: UICollectionViewFlowLayout = .init()
 
     private func setLayout() {
         flowLayout.scrollDirection = .vertical

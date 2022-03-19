@@ -10,6 +10,7 @@ import UIKit
 protocol AuthViewControllerDelegate: AnyObject {
     func updateHeader(type: AuthViewControllerType)
     func navigateAuthVC(type: AuthViewControllerType, from: UIViewController)
+    func removeChildFromParent(vc: UIViewController)
 }
 
 enum AuthViewControllerType {

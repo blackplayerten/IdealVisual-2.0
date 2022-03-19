@@ -25,11 +25,17 @@ final class SingleLineFieldBuilderBoss: SingleLineTypesFieldBuilderBoss {
     func buildEmailField() {
         guard let builder = builder else { Logger.log("no builder for email field"); return }
         builder.configure()
-        guard let image = UIImage(named: "email")?.withRenderingMode(.alwaysOriginal) else {
-            Logger.log("no image in assets in email field")
-            return
+
+        switch AppTheme.shared.mode {
+        case .light:
+            if let image = UIImage(named: "email_light") {
+                builder.configureIcon(image: image.withRenderingMode(.alwaysOriginal))
+            }
+        case .dark:
+            if let image = UIImage(named: "email_dark") {
+                builder.configureIcon(image: image.withRenderingMode(.alwaysOriginal))
+            }
         }
-        builder.configureIcon(image: image)
         builder.configureInput(placeholder: AuthStrings.email.localized)
         builder.configureCountSymbolsLabel()
         builder.configureBottomObject()
@@ -39,11 +45,17 @@ final class SingleLineFieldBuilderBoss: SingleLineTypesFieldBuilderBoss {
     func buildPasswordField(repeat repeatPassword: Bool) {
         guard let builder = builder else { Logger.log("no builder for email field"); return }
         builder.configure()
-        guard let image = UIImage(named: "password")?.withRenderingMode(.alwaysOriginal) else {
-            Logger.log("no image in assets in email field")
-            return
+
+        switch AppTheme.shared.mode {
+        case .light:
+            if let image = UIImage(named: "password_light") {
+                builder.configureIcon(image: image.withRenderingMode(.alwaysOriginal))
+            }
+        case .dark:
+            if let image = UIImage(named: "password_dark") {
+                builder.configureIcon(image: image.withRenderingMode(.alwaysOriginal))
+            }
         }
-        builder.configureIcon(image: image)
         var placeholder: String
         repeatPassword ? (placeholder = AuthStrings.repeatPassword.localized) :
                          (placeholder = AuthStrings.password.localized)

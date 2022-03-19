@@ -30,6 +30,7 @@
 "auth.password" = "Пароль";
 "auth.repeatPassword" = "Повторите пароль";
 "auth.haventAccount" = "Еще нет аккаунта?";
+"auth.haveAccount" = "Уже есть аккаунт?";
 
 "wrongAuth.usernameAlreadyExists" = "Такое имя пользователя уже занято";
 "wrongAuth.usernameLengthIsWrong" = "Имя пользователя должно быть более 4 символов";

@@ -22,7 +22,7 @@ final class SignInViewController: UIViewController {
     // MARK: - data
     private var viewModel: SignInViewModelProtocol? {
         didSet {
-           
+           bind()
         }
     }
     weak var delegate: AuthViewControllerDelegate?
@@ -40,6 +40,7 @@ final class SignInViewController: UIViewController {
     // MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = SignInViewModel()
         listenKeyboard()
         setupScroll()
         configureFields(director: director)
@@ -106,8 +107,8 @@ final class SignInViewController: UIViewController {
 
     private func setupLoginButton() {
         guard let passwordField = passwordField else { return }
-        contentView.addSubview(enterButton)
-        enterButton.snp.makeConstraints {
+        contentView.addSubview(authComponents.enterButton)
+        authComponents.enterButton.snp.makeConstraints {
             $0.top.equalTo(passwordField.snp.bottom).offset(AuthComponents.UIConstants.enterButtonTop)
             $0.left.equalToSuperview().offset(AuthComponents.UIConstants.enterButtonLeftRight)
             $0.right.equalToSuperview().inset(AuthComponents.UIConstants.enterButtonLeftRight)
@@ -116,12 +117,12 @@ final class SignInViewController: UIViewController {
     }
 
     private func setupSignUpStackView() {
-        let stackView = UIStackView(arrangedSubviews: [havingAccountLabel, unEnterButton])
+        let stackView = UIStackView(arrangedSubviews: [authComponents.havingAccountLabel, authComponents.unEnterButton])
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         contentView.addSubview(stackView)
         stackView.snp.makeConstraints {
-            $0.top.equalTo(enterButton.snp.bottom).offset(AuthComponents.UIConstants.spacingTop)
+            $0.top.equalTo(authComponents.enterButton.snp.bottom).offset(AuthComponents.UIConstants.spacingTop)
             $0.left.equalToSuperview().offset(AuthComponents.UIConstants.unEnterStackViewLeftRight)
             $0.right.equalToSuperview().inset(AuthComponents.UIConstants.unEnterStackViewLeftRight)
             $0.height.equalTo(AuthComponents.UIConstants.unEnterStackViewHeight)
@@ -158,10 +159,6 @@ final class SignInViewController: UIViewController {
 
 // MARK: - extension
 extension SignInViewController: AuthComponentsProtocol {
-    var enterButton: UIButton { authComponents.enterButton }
-    var unEnterButton: UIButton { authComponents.unEnterButton }
-    var havingAccountLabel: UILabel { authComponents.havingAccountLabel }
-
     func configureAuthComponents() {
         authComponents.configure(for: .enter, title: AuthStrings.signin.localized,
                                 target: self, action: #selector(login))
@@ -186,15 +183,15 @@ extension SignInViewController {
     // MARK: - keyboard
     @objc
     func keyboardWillShow(_ notification: Notification) {
-        let info = notification.userInfo!
+        guard let info = notification.userInfo else { return }
         guard let rect: CGRect = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
         let keyboardSize = rect.size
         let visiblePartScreenWithoutKeyboard = scroll.bounds.height - keyboardSize.height
     
-        let tr = scroll.convert(havingAccountLabel.frame, to: nil)
+        let tr = scroll.convert(authComponents.havingAccountLabel.frame, to: nil)
 
         if tr.origin.y > visiblePartScreenWithoutKeyboard {
-            let insets = UIEdgeInsets(top: 0, left: 0, bottom: havingAccountLabel.frame.height, right: 0)
+            let insets = UIEdgeInsets(top: 0, left: 0, bottom: authComponents.havingAccountLabel.frame.height, right: 0)
             scroll.contentInset = insets
             scroll.scrollIndicatorInsets = insets
         }

@@ -16,7 +16,7 @@ class AppLoaderViewController: UIViewController {
 
     //MARK: - ui elements
     private var alert: UIAlertController?
-    private lazy var loadingIndicator: UIActivityIndicatorView = {
+    private let loadingIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.color = AppTheme.shared.colorsComponents.background
         indicator.hidesWhenStopped = true

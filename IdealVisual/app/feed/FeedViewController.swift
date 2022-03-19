@@ -8,7 +8,7 @@
 import UIKit
 
 final class FeedViewController: UIViewController {
-    var feed = FeedCollectionView()
+    let feed = FeedCollectionView()
     //MARK: - data
     private var viewModel: FeedViewModelProtocol? {
         didSet {
