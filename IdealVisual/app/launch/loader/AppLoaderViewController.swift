@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 class AppLoaderViewController: UIViewController {
     //MARK: - constants
@@ -17,7 +16,7 @@ class AppLoaderViewController: UIViewController {
 
     //MARK: - ui elements
     private var alert: UIAlertController?
-    private lazy var loadingIndicator: UIActivityIndicatorView = {
+    private let loadingIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.color = AppTheme.shared.colorsComponents.background
         indicator.hidesWhenStopped = true
@@ -91,8 +90,9 @@ class AppLoaderViewController: UIViewController {
         guard let viewModel = appLoaderViewModel else { return Logger.log("no view model") }
         var rootViewController: UIViewController
         if let data = viewModel.launchData {
-            data.isFirstLaunch ? (rootViewController = SignUpViewController()) :
-            data.isUserSignedIn ? (rootViewController = TabBarController()) : (rootViewController = SignInViewController())
+            data.isFirstLaunch ? (rootViewController = AuthViewController(type: .signUp)) :
+            data.isUserSignedIn ? (rootViewController = TabBarController()) :
+            (rootViewController = AuthViewController(type: .signIn))
         } else {
             updateAlertMessage()
             guard let alert = alert else { return Logger.log("no app loader alert") }
@@ -104,4 +104,3 @@ class AppLoaderViewController: UIViewController {
         window.rootViewController = rootViewController
     }
 }
-

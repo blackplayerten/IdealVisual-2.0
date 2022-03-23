@@ -5,7 +5,6 @@
 //  Created by Sasha Kurganova on 10.12.2021.
 //
 
-import Foundation
 import UIKit
 
 protocol AppThemeColorsComponents: AnyObject {
@@ -15,7 +14,9 @@ protocol AppThemeColorsComponents: AnyObject {
     var inputFiledPlaceholder: UIColor { get }
     var inputFieldText: UIColor { get }
     var saveButtonBackground: UIColor { get set }
+    var buttonBackground: UIColor { get set }
     var saveButtonText: UIColor { get set }
     var defaultAvatar: UIColor { get set }
     var loadingIndicator: UIColor { get set }
+    var error: UIColor { get set }
 }

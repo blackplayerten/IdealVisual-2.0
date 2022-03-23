@@ -5,16 +5,15 @@
 //  Created by Sasha Kurganova on 19.12.2021.
 //
 
-import Foundation
-
 enum ErrorStrings: Localizable {
-    case unknown = "unknown"
-    case noInternetConnection = "noInternetConnection"
-    case emptyData = "emptyData"
-    case unauthorized = "unauthorized"
-    case access = "access"
-    case unavaliable = "unavalaible"
-    
+    case unknown
+    case noInternetConnection
+    case emptyData
+    case unauthorized
+    case access
+    case unavaliable
+    case warning
+
     var prefix: String? {
         "error"
     }

@@ -20,6 +20,32 @@
 "error.unauthorized" = "You are unauthorized";
 "error.access" = "You haven't access";
 "error.unavalaible" = "Servise unavaliable now. Try later...";
+"error.warning" = "Warning";
 
 //MARK: - auth
-"auth.username" = "username";
+"auth.signin" = "Log-in";
+"auth.signup" = "Sign-up";
+"auth.username" = "Username";
+"auth.email" = "Email";
+"auth.password" = "Password";
+"auth.repeatPassword" = "Repeat password";
+"auth.haventAccount" = "Don't have an account?";
+"auth.haveAccount" = "Already have an account?";
+
+"wrongAuth.emailEmpty" = "Email address can't be empty";
+"wrongAuth.emailAlreadyExists" = "Email is already exists";
+"wrongAuth.emailFormat" = "Invalid email format";
+"wrongAuth.passwordEmpty" = "Password can't be empty";
+"wrongAuth.passwordLength" = "Password must be more than 6 symbols";
+"wrongAuth.passwordPair" = "Passwords don't match";
+
+//MARK: - photo
+"photo.camera" = "Camera";
+"photo.gallery" = "Photo Library";
+"photo.haventCamera" = "You don't have camera";
+"photo.wrongGallery" = "Something was wrong with photo libraty. Try later...";
+"photo.case wrongSavedPhoto" = "Something was wrong with saved photo libraty album. Try later...";
+
+//MARK: - common
+"common.cancel" = "Cancel";
+"common.ok" = "OK";

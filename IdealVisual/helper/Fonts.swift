@@ -5,7 +5,6 @@
 //  Created by Sasha Kurganova on 18.12.2021.
 //
 
-import Foundation
 import UIKit
 
 extension UIFont {

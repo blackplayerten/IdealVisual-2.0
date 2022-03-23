@@ -5,11 +5,11 @@
 //  Created by Sasha Kurganova on 19.12.2021.
 //
 
-import Foundation
 import UIKit
-import SnapKit
 
 final class MultiLineField: UIView, InputFieldBuilder {
+    var frameInput: CGRect = .zero
+    
     func configure() {
         
     }
@@ -31,6 +31,10 @@ final class MultiLineField: UIView, InputFieldBuilder {
     }
     
     func setDelegate<T>(_with delegate: inout T) {
+        
+    }
+    
+    func reset() {
         
     }
 }

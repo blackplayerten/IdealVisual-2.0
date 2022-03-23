@@ -5,9 +5,7 @@
 //  Created by Sasha Kurganova on 20.12.2021.
 //
 
-import Foundation
 import UIKit
-import SnapKit
 
 final class FeedCollectionView: UICollectionView {
     var flowLayoutDelegate: FeedCollectionViewFlowLayoutDelegate?
@@ -16,7 +14,7 @@ final class FeedCollectionView: UICollectionView {
     private var delegateFeed: FeedCollectionViewDelegate?
     private var dataSourceFeed: FeedCollectionViewDataSource?
     private var dragAndDropDelegateFeed: FeedCollectionViewDragAndDropDelegate?
-    private var flowLayout: UICollectionViewFlowLayout = .init()
+    private let flowLayout: UICollectionViewFlowLayout = .init()
 
     private func setLayout() {
         flowLayout.scrollDirection = .vertical

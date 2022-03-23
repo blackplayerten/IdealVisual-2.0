@@ -5,12 +5,10 @@
 //  Created by Sasha Kurganova on 27.11.2021.
 //
 
-import Foundation
 import UIKit
-import SnapKit
 
 final class FeedViewController: UIViewController {
-    var feed = FeedCollectionView()
+    let feed = FeedCollectionView()
     //MARK: - data
     private var viewModel: FeedViewModelProtocol? {
         didSet {
@@ -18,10 +16,10 @@ final class FeedViewController: UIViewController {
         }
     }
 
+    //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = FeedViewModel()
-        setTheme()
         configureFeed()
         setupFeed()
         fetchImages()
@@ -31,12 +29,6 @@ final class FeedViewController: UIViewController {
     private func bind() {
         guard let viewModel = viewModel else { return Logger.log("no view model") }
         viewModel.bind = { self.update() }
-    }
-
-    fileprivate func setTheme() {
-        view.backgroundColor = AppTheme.shared.colorsComponents.background
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.tintColor =  AppTheme.shared.colorsComponents.background
     }
 
     private func configureFeed() {
@@ -62,6 +54,7 @@ final class FeedViewController: UIViewController {
     }
 }
 
+// MARK: - extension
 extension FeedViewController: FeedProtocol {
     func update() {
         if let data = viewModel?.feedPhotos {

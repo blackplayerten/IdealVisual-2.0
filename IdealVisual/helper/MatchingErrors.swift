@@ -5,8 +5,6 @@
 //  Created by Sasha Kurganova on 18.12.2021.
 //
 
-import Foundation
-
 func matchingErrors(error: ServiceErrors) -> String {
     switch error {
     case .noData, .notFound:

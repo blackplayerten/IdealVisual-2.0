@@ -5,10 +5,11 @@
 //  Created by Sasha Kurganova on 20.12.2021.
 //
 
-import Foundation
 import UIKit
 
 final class MultiLineFieldBuilder: InputFieldBuilder {
+    var frameInput: CGRect = .zero
+    
     func configure() {
         
     }
@@ -30,6 +31,10 @@ final class MultiLineFieldBuilder: InputFieldBuilder {
     }
     
     func setDelegate<T>(_with delegate: inout T) {
+        
+    }
+    
+    func reset() {
         
     }
 }

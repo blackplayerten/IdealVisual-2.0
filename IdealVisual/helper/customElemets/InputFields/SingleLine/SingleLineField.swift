@@ -5,47 +5,45 @@
 //  Created by Sasha Kurganova on 19.12.2021.
 //
 
-import Foundation
 import UIKit
-import SnapKit
 
 final class SingleLineField: UIView, InputFieldBuilder {
+    // MARK: - ui constants
     private struct UIConstants {
         static let width: CGFloat = 300.0
         static let height: CGFloat = 60.0
-        static let iconPadding: CGFloat = 20.0
-        static let iconSize: CGSize = .init(width: 20.0, height: 20.0)
+        static let iconPadding: CGFloat = 10.0
+        static let iconSize: CGSize = .init(width: 30.0, height: 30.0)
         static let textFieldHeight: CGFloat = 30.0
-        static let textFieldPadding: CGFloat = 10.0
+        static let textFieldPadding: CGFloat = 20.0
         static let countSymbolsLabelPadding: UIEdgeInsets = .init(top: 0.0, left: 10.0, bottom: 0.0, right: 20.0)
         static let countSymbolsLabelHeight: CGFloat = 30.0
         static let mistakeLabelPadding: CGFloat = 5.0
     }
 
     //MARK: - elements
-    private let iconImageView = UIImageView(image: nil)
-    let icon = UIImage()
-    let textField = UITextField()
+    private(set) var parentView = UIView()
+    private let iconImageView = UIImageView()
+    private let icon = UIImage()
+    private(set) var textField = UITextField()
     private let countSymbolsLabel = UILabel()
+    private let mistakeLabel = UILabel()
 
-    let mistakeLabel = UILabel()
-    var validator: Validator?
-
-    private weak var singleLineDelegate: SingleLineFieldDelegate?
+    private weak var singleLineDelegate: InputFieldDelegate?
+    var frameInput: CGRect = .zero
 
     //MARK: - configure builder elements
-    init() {
+    init(superView: UIView) {
+        parentView = superView
         super.init(frame: .zero)
     }
-    
+
     func configure() {
         snp.makeConstraints {
             $0.width.equalTo(UIConstants.width)
             $0.height.equalTo(UIConstants.height)
         }
         backgroundColor = AppTheme.shared.colorsComponents.background
-        layer.borderWidth = 0.5
-        layer.cornerRadius = 10
     }
 
     func configureIcon(image: UIImage) {
@@ -55,18 +53,18 @@ final class SingleLineField: UIView, InputFieldBuilder {
             $0.height.width.equalTo(UIConstants.iconSize)
             $0.centerY.equalToSuperview()
         }
-        iconImageView.snp.contentCompressionResistanceHorizontalPriority = 2
-        iconImageView.image = icon
+        iconImageView.image = image
         iconImageView.layer.masksToBounds = true
     }
 
     func configureInput(placeholder: String) {
+        addSubview(textField)
         textField.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.height.equalTo(UIConstants.textFieldHeight)
             $0.left.equalTo(iconImageView.snp.right).offset(UIConstants.textFieldPadding)
+            $0.right.lessThanOrEqualTo(self.snp.right).inset(UIConstants.textFieldPadding)
         }
-        textField.snp.contentHuggingHorizontalPriority = 1
         textField.textAlignment = .left
         textField.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.medium)
         textField.placeholder = placeholder
@@ -77,22 +75,25 @@ final class SingleLineField: UIView, InputFieldBuilder {
                                                     NSAttributedString.Key.font:
                                                         UIFont(name: UIFont.Names.system, size: UIFont.Sizes.small)!])
         textField.attributedPlaceholder = attrPlaceholder
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.delegate = self
     }
-    
+
     func configureCountSymbolsLabel() {
         addSubview(countSymbolsLabel)
         countSymbolsLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(UIConstants.countSymbolsLabelPadding.left)
-            $0.right.equalToSuperview().inset(UIConstants.countSymbolsLabelPadding.right)
+            $0.left.equalTo(textField.snp.right).offset(UIConstants.countSymbolsLabelPadding.left).priority(.low)
+            $0.right.equalToSuperview().inset(UIConstants.countSymbolsLabelPadding.right).priority(.high)
             $0.height.equalTo(UIConstants.countSymbolsLabelHeight)
             $0.centerY.equalToSuperview()
         }
-        countSymbolsLabel.snp.contentCompressionResistanceHorizontalPriority = 2
+        countSymbolsLabel.text = "2/200"
 
         countSymbolsLabel.textColor = AppTheme.shared.colorsComponents.secondaryText
         countSymbolsLabel.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.small)
     }
-    
+
     func configureBottomObject() {
         addSubview(mistakeLabel)
         mistakeLabel.snp.makeConstraints {
@@ -101,10 +102,12 @@ final class SingleLineField: UIView, InputFieldBuilder {
             $0.right.equalToSuperview().offset(UIConstants.mistakeLabelPadding)
             $0.bottom.equalToSuperview()
         }
+        mistakeLabel.textColor = AppTheme.shared.colorsComponents.error
+        mistakeLabel.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.small)
     }
 
     func setDelegate<T>(_with delegate: inout T) {
-        guard let delegate = delegate as? SingleLineFieldDelegate else { return Logger.log("invalid single delegate") }
+        guard let delegate = delegate as? InputFieldDelegate else { return Logger.log("invalid single delegate") }
         self.singleLineDelegate = delegate
     }
 
@@ -117,10 +120,6 @@ final class SingleLineField: UIView, InputFieldBuilder {
         }
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
-    }
-    
-    func setValidator(validator: @escaping Validator) {
-        self.validator = validator
     }
 
     //MARK: - functions
@@ -139,17 +138,8 @@ final class SingleLineField: UIView, InputFieldBuilder {
         mistakeLabel.isHidden = false
     }
 
-    func isValid() -> Bool {
-        guard let validator = validator else { Logger.log("invalid sigleLineInput validator"); return false }
-        return validator(self, mistakeLabel)
-    }
-
-    func setValidationState(isValid: Bool) {
-        if isValid {
-            layer.borderColor = AppTheme.shared.colorsComponents.loadingIndicator.cgColor
-        } else {
-            layer.borderColor = UIColor.red.cgColor
-        }
+    func hideError() {
+        mistakeLabel.isHidden = true
     }
 
     func clearState() {
@@ -167,7 +157,7 @@ final class SingleLineField: UIView, InputFieldBuilder {
 //MARK: - text field delegate
 extension SingleLineField: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        singleLineDelegate?.setActiveField(singleLineField: self)
+        singleLineDelegate?.setActiveField(self)
         return true
     }
 
@@ -188,8 +178,6 @@ extension SingleLineField: UITextFieldDelegate {
             let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
 
             textField.text = newString as String
-
-            _ = isValid()
 
             textField.text = currentString as String
         }

@@ -1,20 +1,19 @@
 //
-//  LightThemeClolors.swift
+//  DarkThemeColors.swift
 //  IdealVisual
 //
 //  Created by Sasha Kurganova on 10.12.2021.
 //
 
-import Foundation
 import UIKit
 
-final class LightThemeColors: AppThemeColorsComponents {
+final class DarkThemeColors: AppThemeColorsComponents {
     var background: UIColor = {
-        .white
+        .black
     }()
 
     var titleText: UIColor = {
-        .black
+        .white
     }()
 
     var secondaryText: UIColor = {
@@ -26,23 +25,30 @@ final class LightThemeColors: AppThemeColorsComponents {
     }()
     
     var inputFieldText: UIColor = {
-        .black
+        .white
     }()
     
     var saveButtonBackground: UIColor = {
         .systemGreen
     }()
 
+    var buttonBackground: UIColor = {
+        .init(red: 0.892, green: 0.812, blue: 0.739, alpha: 1)
+    }()
+
     var saveButtonText: UIColor = {
-        .black
+        .white
     }()
 
     var defaultAvatar: UIColor = {
         .gray
     }()
-    
+
     var loadingIndicator: UIColor = {
         .orange
     }()
+    
+    var error: UIColor = {
+        .red
+    }()
 }
-   

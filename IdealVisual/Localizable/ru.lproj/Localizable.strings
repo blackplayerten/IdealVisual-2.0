@@ -20,6 +20,32 @@
 "error.unauthorized" = "Нет регистрации";
 "error.access" = "Нет доступа";
 "error.unavalaible" = "Сервис недоступен. Попробуйте позднее...";
+"error.warning" = "Предупреждение";
 
 //MARK: - auth
-"auth.username" = "имя пользователя";
+"auth.signin" = "Логин";
+"auth.signup" = "Регистрация";
+"auth.username" = "Имя пользователя";
+"auth.email" = "Электронная почта";
+"auth.password" = "Пароль";
+"auth.repeatPassword" = "Повторите пароль";
+"auth.haventAccount" = "Еще нет аккаунта?";
+"auth.haveAccount" = "Уже есть аккаунт?";
+
+"wrongAuth.emailEmpty" = "Электронная почта не может быть пустой";
+"wrongAuth.emailAlreadyExists" = "Такая электронная почта уже занята";
+"wrongAuth.emailFormat" = "Неверный формат электронной почты";
+"wrongAuth.passwordEmpty" = "Пароль не может быть пустым";
+"wrongAuth.passwordLength" = "Пароль должен быть не менее 6 символов";
+"wrongAuth.passwordPair" = "Пароли не совпадают";
+
+//MARK: - photo
+"photo.camera" = "Камера";
+"photo.gallery" = "Галерея";
+"photo.haventCamera" = "У вас нет камеры";
+"photo.wrongGallery" = "Что-то пошло не так с фото галереей. Попробуйте позднее...";
+"photo.case wrongSavedPhoto" = "Что-то пошло не так с альбомом сохраненных фото. Попробуйте позднее...";
+
+//MARK: - common
+"common.cancel" = "Отменить";
+"common.ok" = "OK";
