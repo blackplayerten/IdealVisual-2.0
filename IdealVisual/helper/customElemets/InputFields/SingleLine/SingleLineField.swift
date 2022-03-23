@@ -25,11 +25,9 @@ final class SingleLineField: UIView, InputFieldBuilder {
     private(set) var parentView = UIView()
     private let iconImageView = UIImageView()
     private let icon = UIImage()
-    private let textField = UITextField()
+    private(set) var textField = UITextField()
     private let countSymbolsLabel = UILabel()
-
-    let mistakeLabel = UILabel()
-    var validator: Validator?
+    private let mistakeLabel = UILabel()
 
     private weak var singleLineDelegate: InputFieldDelegate?
     var frameInput: CGRect = .zero
@@ -104,6 +102,8 @@ final class SingleLineField: UIView, InputFieldBuilder {
             $0.right.equalToSuperview().offset(UIConstants.mistakeLabelPadding)
             $0.bottom.equalToSuperview()
         }
+        mistakeLabel.textColor = AppTheme.shared.colorsComponents.error
+        mistakeLabel.font = UIFont(name: UIFont.Names.system, size: UIFont.Sizes.small)
     }
 
     func setDelegate<T>(_with delegate: inout T) {
@@ -120,10 +120,6 @@ final class SingleLineField: UIView, InputFieldBuilder {
         }
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
-    }
-    
-    func setValidator(validator: @escaping Validator) {
-        self.validator = validator
     }
 
     //MARK: - functions
@@ -142,17 +138,8 @@ final class SingleLineField: UIView, InputFieldBuilder {
         mistakeLabel.isHidden = false
     }
 
-    func isValid() -> Bool {
-        guard let validator = validator else { Logger.log("invalid sigleLineInput validator"); return false }
-        return validator(self, mistakeLabel)
-    }
-
-    func setValidationState(isValid: Bool) {
-        if isValid {
-            layer.borderColor = AppTheme.shared.colorsComponents.loadingIndicator.cgColor
-        } else {
-            layer.borderColor = UIColor.red.cgColor
-        }
+    func hideError() {
+        mistakeLabel.isHidden = true
     }
 
     func clearState() {
@@ -191,8 +178,6 @@ extension SingleLineField: UITextFieldDelegate {
             let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
 
             textField.text = newString as String
-
-            _ = isValid()
 
             textField.text = currentString as String
         }

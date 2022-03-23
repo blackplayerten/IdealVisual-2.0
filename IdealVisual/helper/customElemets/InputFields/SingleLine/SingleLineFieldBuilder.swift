@@ -37,6 +37,7 @@ final class SingleLineFieldBuilderBoss: SingleLineTypesFieldBuilderBoss {
             }
         }
         builder.configureInput(placeholder: AuthStrings.email.localized)
+        builder.setInputMode(withContentType: .emailAddress, withKeyboardType: .emailAddress)
         builder.configureCountSymbolsLabel()
         builder.configureBottomObject()
         builder.setDelegate(_with: &delegate)
@@ -60,6 +61,8 @@ final class SingleLineFieldBuilderBoss: SingleLineTypesFieldBuilderBoss {
         repeatPassword ? (placeholder = AuthStrings.repeatPassword.localized) :
                          (placeholder = AuthStrings.password.localized)
         builder.configureInput(placeholder: placeholder)
+        repeatPassword ? (builder.setInputMode(withContentType: .newPassword, withKeyboardType: .default)) :
+                         (builder.setInputMode(withContentType: .password, withKeyboardType: .default))
         builder.configureCountSymbolsLabel()
         builder.configureBottomObject()
         builder.setDelegate(_with: &delegate)
@@ -86,6 +89,10 @@ final class SingleLineFieldBuilder: InputFieldBuilder {
 
     func configureInput(placeholder: String) {
         singleField.configureInput(placeholder: placeholder)
+    }
+
+    func setInputMode(withContentType contentType: UITextContentType, withKeyboardType keyboardType: UIKeyboardType) {
+        singleField.setSecutityField(withContentType: contentType, withKeyboardType: keyboardType)
     }
 
     func configureCountSymbolsLabel() {

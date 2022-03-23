@@ -136,8 +136,40 @@ final class SignInViewController: UIViewController {
 
     // MARK: - actions
     @objc
-    private func login() {
-        guard let viewModel = viewModel else { return Logger.log("no view model") }
+    private func validateInputData() {
+        guard let viewModel = viewModel,
+              let emailField = emailField,
+              let passwordField = passwordField
+        else { return Logger.log("no view model") }
+
+        let emailError = viewModel.validateEmail(for: emailField)
+        if let stateValidate = emailError {
+            switch stateValidate {
+            case .empty:
+                emailField.setError(text: WrongAuthStrings.emailEmpty.localized)
+            case .wrongFormat:
+                emailField.setError(text: WrongAuthStrings.emailFormat.localized)
+            }
+        } else {
+            emailField.hideError()
+        }
+
+        let passwordError = viewModel.validatePassword(for: passwordField)
+        if let stateValidate = passwordError {
+            switch stateValidate {
+            case .empty:
+                passwordField.setError(text: WrongAuthStrings.passwordEmpty.localized)
+            case .wrongFormat, .invalidPair:
+                passwordField.setError(text: WrongAuthStrings.passwordLength.localized)
+            }
+        } else {
+            passwordField.hideError()
+        }
+
+        guard emailError == nil, passwordError == nil else {
+            return
+        }
+
         viewModel.login()
     }
 
@@ -161,7 +193,7 @@ final class SignInViewController: UIViewController {
 extension SignInViewController: AuthComponentsProtocol {
     func configureAuthComponents() {
         authComponents.configure(for: .enter, title: AuthStrings.signin.localized,
-                                target: self, action: #selector(login))
+                                target: self, action: #selector(validateInputData))
         authComponents.configure(for: .unEnter, title: AuthStrings.signup.localized,
                                 target: self, action: #selector(self.showSignUp))
         authComponents.configureHavingAccountLabel(text: AuthStrings.haventAccount.localized)

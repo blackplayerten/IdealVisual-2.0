@@ -25,11 +25,12 @@ enum AuthStrings: Localizable {
 }
 
 enum WrongAuthStrings: Localizable {
-    case usernameAlreadyExists
-    case usernameLengthIsWrong
+    case emailEmpty
     case emailAlreadyExists
-    case emailFormatIsWrong
-    case passwordLengthIsWrong
+    case emailFormat
+    case passwordEmpty
+    case passwordLength
+    case passwordPair
 
     var prefix: String? {
         "wrongAuth"

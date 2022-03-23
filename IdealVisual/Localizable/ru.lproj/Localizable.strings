@@ -32,11 +32,12 @@
 "auth.haventAccount" = "Еще нет аккаунта?";
 "auth.haveAccount" = "Уже есть аккаунт?";
 
-"wrongAuth.usernameAlreadyExists" = "Такое имя пользователя уже занято";
-"wrongAuth.usernameLengthIsWrong" = "Имя пользователя должно быть более 4 символов";
+"wrongAuth.emailEmpty" = "Электронная почта не может быть пустой";
 "wrongAuth.emailAlreadyExists" = "Такая электронная почта уже занята";
-"wrongAuth.emailFormatIsWrong" = "Неверный формат электронной почты";
-"wrongAuth.passwordLengthIsWrong" = "Пароль должен быть не менее 6 символов";
+"wrongAuth.emailFormat" = "Неверный формат электронной почты";
+"wrongAuth.passwordEmpty" = "Пароль не может быть пустым";
+"wrongAuth.passwordLength" = "Пароль должен быть не менее 6 символов";
+"wrongAuth.passwordPair" = "Пароли не совпадают";
 
 //MARK: - photo
 "photo.camera" = "Камера";

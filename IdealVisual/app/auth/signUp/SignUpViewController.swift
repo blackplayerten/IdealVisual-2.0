@@ -174,9 +174,48 @@ final class SignUpViewController: UIViewController {
         viewModel.bind = { self.showFeed() }
     }
 
+    // MARK: - actions 
     @objc
-    private func signUp() {
-        guard let viewModel = viewModel else { return Logger.log("no view model") }
+    private func validateInputData() {
+        guard let viewModel = viewModel,
+              let emailField = emailField,
+              let passwordField = passwordField,
+              let repeatPasswordField = repeatPasswordField
+        else { return Logger.log("no view model") }
+
+        if let validateState = viewModel.validateEmail(for: emailField) {
+            switch validateState {
+            case .empty:
+                emailField.setError(text: WrongAuthStrings.emailEmpty.localized)
+            case .wrongFormat:
+                emailField.setError(text: WrongAuthStrings.emailFormat.localized)
+            }
+        } else {
+            emailField.hideError()
+        }
+
+        if let validateState = viewModel.validatePassword(for: passwordField) {
+            switch validateState {
+            case .empty:
+                passwordField.setError(text: WrongAuthStrings.passwordEmpty.localized)
+            case .wrongFormat, .invalidPair:
+                passwordField.setError(text: WrongAuthStrings.passwordLength.localized)
+            }
+        } else {
+            passwordField.hideError()
+        }
+
+        if let validateState = viewModel.validatePasswordPair(for: passwordField, field2: repeatPasswordField) {
+            switch validateState {
+            case .invalidPair:
+                return passwordField.setError(text: WrongAuthStrings.passwordPair.localized)
+            case .empty, .wrongFormat:
+                return
+            }
+        } else {
+            passwordField.hideError()
+        }
+
         viewModel.signup()
     }
 
@@ -200,10 +239,10 @@ final class SignUpViewController: UIViewController {
 extension SignUpViewController: AuthComponentsProtocol {
     func configureAuthComponents() {
         authComponents.configure(for: .enter, title: AuthStrings.signup.localized,
-                                target: self, action: #selector(signUp))
+                                target: self, action: #selector(validateInputData))
         authComponents.configure(for: .unEnter, title: AuthStrings.signin.localized,
                                 target: self, action: #selector(showSignIn))
-        authComponents.configureHavingAccountLabel(text: AuthStrings.haventAccount.localized)
+        authComponents.configureHavingAccountLabel(text: AuthStrings.haveAccount.localized)
     }
     
     func setupAuthComponents() {

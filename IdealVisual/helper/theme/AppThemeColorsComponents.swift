@@ -18,4 +18,5 @@ protocol AppThemeColorsComponents: AnyObject {
     var saveButtonText: UIColor { get set }
     var defaultAvatar: UIColor { get set }
     var loadingIndicator: UIColor { get set }
+    var error: UIColor { get set }
 }

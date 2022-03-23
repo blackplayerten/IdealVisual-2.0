@@ -47,5 +47,9 @@ final class LightThemeColors: AppThemeColorsComponents {
     var loadingIndicator: UIColor = {
         .orange
     }()
+
+    var error: UIColor = {
+        .red
+    }()
 }
    

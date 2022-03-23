@@ -32,11 +32,12 @@
 "auth.haventAccount" = "Don't have an account?";
 "auth.haveAccount" = "Already have an account?";
 
-"wrongAuth.usernameAlreadyExists" = "Username is already exists";
-"wrongAuth.usernameLengthIsWrong" = "Username length shoud be more than 4 symbols";
+"wrongAuth.emailEmpty" = "Email address can't be empty";
 "wrongAuth.emailAlreadyExists" = "Email is already exists";
-"wrongAuth.emailFormatIsWrong" = "Invalid email format";
-"wrongAuth.passwordLengthIsWrong" = "Password must be more than 6 symbols";
+"wrongAuth.emailFormat" = "Invalid email format";
+"wrongAuth.passwordEmpty" = "Password can't be empty";
+"wrongAuth.passwordLength" = "Password must be more than 6 symbols";
+"wrongAuth.passwordPair" = "Passwords don't match";
 
 //MARK: - photo
 "photo.camera" = "Camera";
