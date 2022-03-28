@@ -11,13 +11,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = AppLoaderViewController()
         self.window = window
-        window.makeKeyAndVisible()
+
+        let navigationController = NavigationController()
+        window.rootViewController = navigationController
+
+        let router = configureRouter(with: navigationController)
+        let coordinator = configureAppCoordinator(with: router)
+        coordinator.start()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -54,3 +58,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+extension SceneDelegate {
+    private func configureRouter(with navigation: UINavigationController) -> BaseRouterDescriprion {
+        guard let navigation = navigation as? NavigationController else { exit(-1) }
+        return BaseRouter(navigationController: navigation)
+    }
+
+    private func configureAppCoordinator(with router: BaseRouterDescriprion) -> BaseCoordinator & CoordinatorDescription & AppCoordinatorProtocol {
+        AppCoordinator(router: router)
+    }
+}

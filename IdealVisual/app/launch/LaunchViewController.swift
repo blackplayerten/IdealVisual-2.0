@@ -7,7 +7,16 @@
 
 import UIKit
 
-class AppLoaderViewController: UIViewController {
+protocol LaunchViewInput: AnyObject {
+    func setupWarningType(type: ConnectionWarningType)
+    func showWarning()
+}
+
+protocol LaunchViewOutput: AnyObject {
+    var warningType: ConnectionWarningType { get set }
+}
+
+class LaunchViewController: UIViewController {
     //MARK: - constants
     private struct UIConstants {
         static let leftRightMargin: Float = 10.0
@@ -24,17 +33,25 @@ class AppLoaderViewController: UIViewController {
     }()
 
     //MARK: - data
-    private var appLoaderViewModel: AppLoaderViewModelProtocol? {
+    private var viewModel: LaunchViewModelProtocol & LaunchViewModelInput & LaunchViewModelOutput {
         didSet {
             bind()
         }
+    }
+
+    init(viewModel: LaunchViewModelProtocol & LaunchViewModelInput & LaunchViewModelOutput) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: .main)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        appLoaderViewModel = AppLoaderViewModel()
         configureAlert()
     }
 
@@ -44,23 +61,18 @@ class AppLoaderViewController: UIViewController {
         guard let alert = alert else { return Logger.log("no app loader alert") }
         present(alert, animated: true) { [weak self] in
             DispatchQueue.main.async {
-                guard let self = self,
-                      let viewModel = self.appLoaderViewModel
-                else { return Logger.log("nill self or no view model") }
-                viewModel.launchApp()
+                guard let self = self else { return Logger.log("nill self or no view model") }
+                self.viewModel.configureWarning()
             }
         }
     }
     
     //MARK: - private func
     private func bind() {
-        guard let viewModel = appLoaderViewModel else { return Logger.log("no view model") }
-        viewModel.bindLaunchData = { self.showFirstScreen() }
         viewModel.bindAlertMessage = { self.updateAlertMessage() }
     }
 
     private func configureAlert() {
-        guard let viewModel = appLoaderViewModel else { return Logger.log("no view model") }
         let alert = UIAlertController(title: nil, message: viewModel.alertUpdatedMessage, preferredStyle: .alert)
 
         alert.view.backgroundColor = .white
@@ -80,27 +92,22 @@ class AppLoaderViewController: UIViewController {
     }
 
     private func updateAlertMessage() {
-        guard let viewModel = appLoaderViewModel else { return Logger.log("no view model") }
         guard let alert = alert else { return Logger.log("no app loader alert") }
         alert.message = viewModel.alertUpdatedMessage
         loadingIndicator.stopAnimating()
     }
+}
 
-    private func showFirstScreen() {
-        guard let viewModel = appLoaderViewModel else { return Logger.log("no view model") }
-        var rootViewController: UIViewController
-        if let data = viewModel.launchData {
-            data.isFirstLaunch ? (rootViewController = AuthViewController(type: .signUp)) :
-            data.isUserSignedIn ? (rootViewController = TabBarController()) :
-            (rootViewController = AuthViewController(type: .signIn))
-        } else {
-            updateAlertMessage()
-            guard let alert = alert else { return Logger.log("no app loader alert") }
-            alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { _ in exit(-1) }))
-            rootViewController = self
-        }
-        loadingIndicator.stopAnimating()
-        guard let window = view.window else { return Logger.log("no window") }
-        window.rootViewController = rootViewController
+extension LaunchViewController: Presentable {
+    var present: UIViewController { get{ self } set{} }
+}
+
+extension LaunchViewController: LaunchViewInput {
+    func setupWarningType(type: ConnectionWarningType) {
+        viewModel.configureWarning()
+    }
+
+    func showWarning() {
+        viewModel.configureWarning()
     }
 }

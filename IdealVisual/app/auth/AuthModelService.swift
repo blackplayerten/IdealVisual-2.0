@@ -4,3 +4,12 @@
 //
 //  Created by Sasha Kurganova on 27.11.2021.
 //
+
+
+protocol AuthModelServiceDescription: AnyObject {
+    
+}
+
+final class AuthModelService: AuthModelServiceDescription {
+    
+}

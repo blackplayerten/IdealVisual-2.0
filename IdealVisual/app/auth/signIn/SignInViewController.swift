@@ -12,7 +12,7 @@ final class SignInViewController: UIViewController {
     private let scroll = UIScrollView()
     private let contentView = UIView()
 
-    private var director: SingleLineTypesFieldBuilderBoss
+    private var director: SingleLineFieldBuilderBossDescription
     private var emailField: SingleLineField?
     private var passwordField: SingleLineField?
     private var activeField: InputFieldBuilder?
@@ -27,7 +27,7 @@ final class SignInViewController: UIViewController {
     }
     weak var delegate: AuthViewControllerDelegate?
 
-    init(director: SingleLineTypesFieldBuilderBoss, delegate: AuthViewControllerDelegate) {
+    init(director: SingleLineFieldBuilderBossDescription, delegate: AuthViewControllerDelegate) {
         self.director = director
         self.delegate = delegate
         super.init(nibName: nil, bundle: .main)
@@ -74,7 +74,7 @@ final class SignInViewController: UIViewController {
         scroll.contentSize = contentView.frame.size
     }
 
-    private func configureFields(director: SingleLineTypesFieldBuilderBoss) {
+    private func configureFields(director: SingleLineFieldBuilderBossDescription) {
         let builder = SingleLineFieldBuilder(parentView: contentView)
         director.update(builder: builder, delegate: self)
         director.buildEmailField()
@@ -179,7 +179,7 @@ final class SignInViewController: UIViewController {
             Logger.log("no auth delegate")
             return
         }
-        delegate.navigateAuthVC(type: .signUp, from: self)
+//        delegate.navigateAuthVC(type: .signUp, from: self)
     }
 
     @objc

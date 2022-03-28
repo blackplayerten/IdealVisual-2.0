@@ -37,8 +37,12 @@ final class FeedCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension FeedCollectionViewCell: FeedCollectionProtocol {
+extension FeedCollectionViewCell: FeedCollectionCellProtocol {
     func updatePhoto(with image: UIImage) {
         photoImageView.image = image.withRenderingMode(.alwaysOriginal)
+    }
+
+    func getImage() -> UIImage? {
+        photoImageView.image
     }
 }

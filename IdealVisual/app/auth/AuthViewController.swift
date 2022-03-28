@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 
+protocol AuthViewInput: AnyObject { }
+
 final class AuthViewController: UIViewController {
     // MARK: - constants
     private struct UIConstants {
@@ -18,9 +20,10 @@ final class AuthViewController: UIViewController {
     }
 
     // MARK: - ui elements
-    private let director = SingleLineFieldBuilderBoss()
+    private var director = SingleLineFieldBuilderBoss()
     let mask = BackgroundMaskViewController(height: .large, cornerRadusMask: .large, positionCornerRadius: .top)
-    private let type: AuthViewControllerType
+    var type: AuthViewControllerType?
+
     private let headerView: UILabel = {
         let label = UILabel()
         label.textColor = AppTheme.shared.colorsComponents.titleText
@@ -38,12 +41,11 @@ final class AuthViewController: UIViewController {
         super.viewDidAppear(animated)
         addMask()
         setupHeader()
-        navigateAuthVC(type: type, from: self)
+        navigateAuthVC(type: type!, from: self)
     }
 
-    // MARK: func
-    init(type: AuthViewControllerType) {
-        self.type = type
+    init(director: SingleLineFieldBuilderBoss) {
+        self.director = director
         super.init(nibName: nil, bundle: .main)
     }
 
@@ -121,4 +123,12 @@ extension AuthViewController: AuthViewControllerDelegate {
         vc.view.removeFromSuperview()
         vc.removeFromParent()
     }
+}
+
+extension AuthViewController: Presentable {
+    var present: UIViewController { get{ self } set{} }
+}
+
+extension AuthViewController: AuthViewInput {
+    
 }

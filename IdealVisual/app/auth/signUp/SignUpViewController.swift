@@ -18,7 +18,7 @@ final class SignUpViewController: UIViewController {
     private let contentView = UIView()
     private var avatar: AvatarViewController?
 
-    private var director: SingleLineTypesFieldBuilderBoss
+    private var director: SingleLineFieldBuilderBossDescription
     private var emailField: SingleLineField?
     private var passwordField: SingleLineField?
     private var repeatPasswordField: SingleLineField?
@@ -34,7 +34,7 @@ final class SignUpViewController: UIViewController {
     }
     weak var delegate: AuthViewControllerDelegate?
 
-    init(director: SingleLineTypesFieldBuilderBoss, delegate: AuthViewControllerDelegate) {
+    init(director: SingleLineFieldBuilderBossDescription, delegate: AuthViewControllerDelegate) {
         self.director = director
         self.delegate = delegate
         super.init(nibName: nil, bundle: .main)
@@ -105,7 +105,7 @@ final class SignUpViewController: UIViewController {
         }
     }
 
-    private func configureFields(director: SingleLineTypesFieldBuilderBoss) {
+    private func configureFields(director: SingleLineFieldBuilderBossDescription) {
         let builder = SingleLineFieldBuilder(parentView: contentView)
         director.update(builder: builder, delegate: self)
         director.buildEmailField()
@@ -225,7 +225,7 @@ final class SignUpViewController: UIViewController {
             Logger.log("no auth delegate")
             return
         }
-        delegate.navigateAuthVC(type: .signIn, from: self)
+//        delegate.navigateAuthVC(type: .signIn, from: self)
     }
 
     @objc

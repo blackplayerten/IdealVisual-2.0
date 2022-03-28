@@ -13,6 +13,8 @@ protocol FeedViewModelProtocol: AnyObject {
     var feedPhotos: [UIImage] { get }
 
     func fetchFeedImages()
+    func swapImages(source: Int, destination: Int, completion: @escaping (Bool) -> Void)
+    func addPost()
 }
 
 final class FeedViewModel: FeedViewModelProtocol {
@@ -44,5 +46,16 @@ final class FeedViewModel: FeedViewModelProtocol {
         }.catch { error in
             Logger.log(error)
         }
+    }
+
+    func swapImages(source: Int, destination: Int, completion: @escaping (Bool) -> Void) {
+        var swapResult: Bool = true
+        DispatchQueue.main.async {
+            completion(swapResult)
+        }
+    }
+
+    func addPost() {
+        
     }
 }

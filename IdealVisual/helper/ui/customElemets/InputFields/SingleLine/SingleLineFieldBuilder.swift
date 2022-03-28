@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol SingleLineTypesFieldBuilderBoss: AnyObject {
+protocol SingleLineFieldBuilderBossDescription: AnyObject {
     func update(builder: SingleLineFieldBuilder, delegate: InputFieldDelegate)
     func buildEmailField()
     func buildPasswordField(repeat repeatPassword: Bool)
 }
 
-final class SingleLineFieldBuilderBoss: SingleLineTypesFieldBuilderBoss {
+final class SingleLineFieldBuilderBoss: SingleLineFieldBuilderBossDescription {
     private var builder: SingleLineFieldBuilder?
     private var delegate: InputFieldDelegate?
 

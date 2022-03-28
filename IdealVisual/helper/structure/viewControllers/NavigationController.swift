@@ -18,5 +18,6 @@ final class NavigationController: UINavigationController {
     func applyTheme() {
         navigationBar.isTranslucent = false
         navigationBar.tintColor = AppTheme.shared.colorsComponents.background
+        navigationBar.backgroundColor = AppTheme.shared.colorsComponents.background
     }
 }

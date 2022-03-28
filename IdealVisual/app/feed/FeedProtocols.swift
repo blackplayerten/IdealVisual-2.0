@@ -7,10 +7,16 @@
 
 import UIKit
 
-protocol FeedCollectionProtocol: AnyObject {
-    func updatePhoto(with name: UIImage)
-}
-
 protocol FeedProtocol: AnyObject {
     func update()
+    func swapImages(source: Int, destination: Int)
+}
+
+protocol FeedCollectionProtocol: AnyObject {
+    func swapImages(source: Int, destination: Int)
+}
+
+protocol FeedCollectionCellProtocol: AnyObject {
+    func updatePhoto(with name: UIImage)
+    func getImage() -> UIImage?
 }
