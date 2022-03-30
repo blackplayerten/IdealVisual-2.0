@@ -11,7 +11,7 @@
 "language.ru" = "Русский";
 
 //MARK: - loader
-"loader.alert" = "Загрузка...";
+"launch.load" = "Загрузка...";
 
 //MARK: - error
 "error.unknown" = "Неизвестная ошибка. Попробуйте позднее...";

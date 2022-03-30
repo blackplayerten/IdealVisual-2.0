@@ -11,7 +11,7 @@ enum ErrorStrings: Localizable {
     case emptyData
     case unauthorized
     case access
-    case unavaliable
+    case unavailable
     case warning
 
     var prefix: String? {

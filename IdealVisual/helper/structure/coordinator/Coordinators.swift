@@ -7,20 +7,8 @@
 
 import Foundation
 
-protocol CoordinatorDescription: AnyObject {
-    var router: BaseRouterDescriprion { get set }
-    var onFinish: () -> Void { get set }
-
-    func start()
-}
-
-protocol CoordinatorsProtocol: AnyObject {
-    func configureLaunchCoordinator(with router: BaseRouterDescriprion) -> CoordinatorDescription & LaunchDescription
-    func configureAuthCoordinator(with router: BaseRouterDescriprion) -> CoordinatorDescription & AuthCoordinatorDescription
-}
-
-final class Coordinators: CoordinatorsProtocol {
-    static let shared = Coordinators()
+final class ListCoordinator: ListCoordinatoorDescription {
+    static let shared = ListCoordinator()
 
     func configureLaunchCoordinator(with router: BaseRouterDescriprion) -> CoordinatorDescription & LaunchDescription {
         LaunchCoordinator(router: router)

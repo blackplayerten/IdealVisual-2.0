@@ -5,10 +5,6 @@
 //  Created by Sasha Kurganova on 26.03.2022.
 //
 
-protocol AuthCoordinatorDescription: AnyObject {
-    var type: AuthViewControllerType? { get set }
-}
-
 final class AuthCoordinator: BaseCoordinator, CoordinatorDescription, AuthCoordinatorDescription {
     var router: BaseRouterDescriprion
     var onFinish: (() -> Void) = {}

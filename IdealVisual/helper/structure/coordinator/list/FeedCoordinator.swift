@@ -5,12 +5,6 @@
 //  Created by Sasha Kurganova on 26.03.2022.
 //
 
-import Foundation
-
-protocol FeedCoordinatorDescription: AnyObject {
-    
-}
-
 final class FeedCoordinator: CoordinatorDescription, FeedCoordinatorDescription {
     var router: BaseRouterDescriprion
 

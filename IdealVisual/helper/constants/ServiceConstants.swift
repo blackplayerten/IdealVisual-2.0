@@ -9,5 +9,5 @@ import Foundation
 
 enum ConnectionWarningType {
     case connection
-    case unavaliable
+    case unavailable
 }

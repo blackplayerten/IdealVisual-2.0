@@ -16,7 +16,7 @@ func matchingErrors(error: ServiceErrors) -> String {
     case .unauthorized:
         return ErrorStrings.unauthorized.localized
     case .invalidURL:
-        return ErrorStrings.unavaliable.localized
+        return ErrorStrings.unavailable.localized
     case .unknown:
         return ErrorStrings.unknown.localized
     default:

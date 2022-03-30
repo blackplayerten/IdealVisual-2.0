@@ -27,7 +27,7 @@ struct Localizable: ExpressibleByStringLiteral, Equatable {
     }
     
     func localized(prefix: String?, value: String) -> String {
-        let key = prefix == nil ? value : "\(prefix!)" + "." + "\(value)"
+        let key = prefix == nil ? value : "\(prefix!).\(value)"
 
         let result = Bundle.main.localizedString(forKey: key,
                                                  value: "**\(key)**",

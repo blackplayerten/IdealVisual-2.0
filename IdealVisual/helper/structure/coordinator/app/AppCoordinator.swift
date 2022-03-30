@@ -5,10 +5,6 @@
 //  Created by Sasha Kurganova on 26.03.2022.
 //
 
-import Darwin
-
-protocol AppCoordinatorProtocol: AnyObject { }
-
 final class AppCoordinator: BaseCoordinator, CoordinatorDescription, AppCoordinatorProtocol {
     var router: BaseRouterDescriprion
     var onFinish: () -> Void = {}
@@ -22,7 +18,7 @@ final class AppCoordinator: BaseCoordinator, CoordinatorDescription, AppCoordina
     }
 
     private func checkOperationMode() {
-        let launchCoordinator = Coordinators.shared.configureLaunchCoordinator(with: router)
+        let launchCoordinator = ListCoordinator.shared.configureLaunchCoordinator(with: router)
         launchCoordinator.onFinish = { [weak self, weak launchCoordinator] in
             guard let self = self,
                   let coordinator = launchCoordinator
@@ -32,11 +28,9 @@ final class AppCoordinator: BaseCoordinator, CoordinatorDescription, AppCoordina
         }
         if !FeatureToggle.internetConnection {
             if FeatureToggle.offline {
-                launchCoordinator.showWarning(with: .connection)
+                launchCoordinator.configureWarning(with: .connection)
             } else {
-                launchCoordinator.showWarning(with: .unavaliable)
-                launchCoordinator.onFinish()
-                self.router.closeApp()
+                launchCoordinator.configureWarning(with: .unavailable)
             }
         }
         addDependency(launchCoordinator)

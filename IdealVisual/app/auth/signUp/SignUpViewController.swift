@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class SignUpViewController: UIViewController {
     // MARK: - ui constants

@@ -7,15 +7,14 @@
 
 import UIKit
 
-extension LaunchCoordinator {
-
-    func showWarning(with type: ConnectionWarningType) {
-        configureWarning(with: type)
+extension LaunchCoordinator: LaunchDescription {
+    func configureWarning(with type: ConnectionWarningType) {
+        initWarning(with: type)
     }
 
-    private func configureWarning(with type: ConnectionWarningType) {
+    private func initWarning(with type: ConnectionWarningType) {
         let launchViewController = AppViewControllers.shared.configureLaunch()
-        launchViewController.setupWarningType(type: type)
+        launchViewController.warningType = type
         router.push(viewController: launchViewController)
     }
 }

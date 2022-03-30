@@ -11,7 +11,7 @@
 "language.ru" = "Russian";
 
 //MARK: - loader
-"loader.alert" = "Loading...";
+"launch.load" = "Loading...";
 
 //MARK: - error
 "error.unknown" = "Unknown error. Try later...";
@@ -19,7 +19,7 @@
 "error.emptyData" = "Failed to load data";
 "error.unauthorized" = "You are unauthorized";
 "error.access" = "You haven't access";
-"error.unavalaible" = "Servise unavaliable now. Try later...";
+"error.unavailable" = "Service unavailable now. Try later...";
 "error.warning" = "Warning";
 
 //MARK: - auth

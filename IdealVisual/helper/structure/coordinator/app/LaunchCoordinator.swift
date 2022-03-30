@@ -5,12 +5,6 @@
 //  Created by Sasha Kurganova on 28.03.2022.
 //
 
-import Foundation
-
-protocol LaunchDescription: AnyObject {
-    func showWarning(with type: ConnectionWarningType)
-}
-
 final class LaunchCoordinator: BaseCoordinator, CoordinatorDescription {
     var router: BaseRouterDescriprion
     var onFinish: () -> Void = {}
@@ -25,7 +19,7 @@ final class LaunchCoordinator: BaseCoordinator, CoordinatorDescription {
     }
 
     private func configureAuthorizedZone() {
-        let feedCoordinator = Coordinators.shared.configureFeedCoordinator(with: router)
+        let feedCoordinator = ListCoordinator.shared.configureFeedCoordinator(with: router)
         feedCoordinator.onFinish = { [weak self, weak feedCoordinator] in
             guard let self = self,
                   let coordinator = feedCoordinator
@@ -38,7 +32,7 @@ final class LaunchCoordinator: BaseCoordinator, CoordinatorDescription {
     }
 
     private func configureUnAuthorizedZone() {
-        let authCoordinator = Coordinators.shared.configureAuthCoordinator(with: router)
+        let authCoordinator = ListCoordinator.shared.configureAuthCoordinator(with: router)
         authCoordinator.onFinish = { [weak self, weak authCoordinator] in
             guard let self = self,
                   let coordinator = authCoordinator

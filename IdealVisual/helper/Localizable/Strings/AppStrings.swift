@@ -18,11 +18,11 @@ enum Locate: Localizable {
     }
 }
 
-enum AppLoaderStrings: Localizable {
-    case alert
+enum AppStrings: Localizable {
+    case load
 
     var prefix: String? {
-        "loader"
+        "launch"
     }
 
     var localized: String {

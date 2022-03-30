@@ -6,10 +6,6 @@
 //
 
 
-protocol AuthModelServiceDescription: AnyObject {
-    
-}
-
 final class AuthModelService: AuthModelServiceDescription {
     
 }

@@ -5,46 +5,22 @@
 //  Created by Sasha Kurganova on 27.11.2021.
 //
 
-protocol LaunchViewModelProtocol: AnyObject { }
-
-protocol LaunchViewModelInput: AnyObject {
-    func setWarningType(_ type: ConnectionWarningType)
-    func configureWarning()
-}
-
-protocol LaunchViewModelOutput: AnyObject {
-    var alertUpdatedMessage: String { get }
-    var bindAlertMessage: (() -> ()) { get set }
-}
-
-final class LaunchViewModel: LaunchViewModelProtocol, LaunchViewModelInput, LaunchViewModelOutput {
+final class LaunchViewModel: LaunchViewModelProtocol, LaunchViewModelInput, LaunchViewModelOutput, LaunchViewOutput {
     // MARK: - vars
-    var bindAlertMessage: (() -> ()) = {}
+    var bindAlertMessage: (() -> Void) = {}
 
-    private(set) var alertUpdatedMessage: String = AppLoaderStrings.alert.localized {
+    private(set) var alertUpdatedMessage: String = AppStrings.load.localized {
         didSet {
             self.bindAlertMessage()
         }
     }
 
-    // MARK: - func
-    func setWarningType(_ type: ConnectionWarningType) {
-        warningType = type
-    }
-
-    func configureWarning() {
-        switch warningType {
+    func configureWarning(type: ConnectionWarningType) {
+        switch type {
         case .connection:
             alertUpdatedMessage = ErrorStrings.access.localized
-        case .unavaliable:
-            alertUpdatedMessage = ErrorStrings.unavaliable.localized
+        case .unavailable:
+            alertUpdatedMessage = ErrorStrings.unavailable.localized
         }
-    }
-}
-
-extension LaunchViewModel: LaunchViewOutput {
-    var warningType: ConnectionWarningType {
-        get { .connection }
-        set { }
     }
 }

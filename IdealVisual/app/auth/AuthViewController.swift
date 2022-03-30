@@ -6,9 +6,6 @@
 //
 
 import UIKit
-import SnapKit
-
-protocol AuthViewInput: AnyObject { }
 
 final class AuthViewController: UIViewController {
     // MARK: - constants

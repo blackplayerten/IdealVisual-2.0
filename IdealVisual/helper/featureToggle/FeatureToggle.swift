@@ -5,13 +5,7 @@
 //  Created by Sasha Kurganova on 28.03.2022.
 //
 
-import Foundation
 import Alamofire
-
-protocol FeatureToggleDescription: AnyObject {
-    static var internetConnection: Bool { get set }
-    static var offline: Bool { get set }
-}
 
 final class FeatureToggle: FeatureToggleDescription {
     private static let networkManager = NetworkReachabilityManager()
